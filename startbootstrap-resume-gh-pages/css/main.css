@@ -4,6 +4,11 @@
         background-color: #062743 !important;
     }
     
+    #profil.img-fluid {
+        height: 45vh;
+        width: 15vw;
+    }
+    
     .rounded-circle {
         height: 18vh;
         width: 15vw;
@@ -23,15 +28,21 @@
         background-size: 100%;
     }
     
+    #d-competences {
+        /* border: 1px solid purple; */
+        position: relative;
+        top: 25vh;
+    }
+    
     #experiences {
-        background-image: url('../img/worker_def.jpg');
+        background-image: url('../img/fondFormation.jpg');
         background-repeat: no-repeat;
-        background-size: 100%;
+        background-size: 180%;
         /* margin-top: 5vh; */
     }
     
     #formations {
-        background-image: url('../img/fond_formations.jpg');
+        background-image: url('../img/fondFormation.jpg');
         background-repeat: no-repeat;
         background-size: 100%;
     }
@@ -41,19 +52,16 @@
         background-repeat: no-repeat;
         background-size: 110%;
     }
-    
-    div .my-auto #d-competences {}
-    /*   typo  */
+    /***   typo  ***/
     
     h1,
     h2,
     h4,
     h5,
     h6,
-    .subheading,
     p {
-        font-family: 'Saira Extra Condensed', serif;
-        font-weight: 700;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 650;
         text-transform: uppercase;
         color: #fff9e0;
     }
@@ -63,14 +71,16 @@
     h4,
     h5,
     h6 {
-        font-size: 3.5rem;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 2.5rem;
     }
     
     p {
-        font-size: 1.6rem;
+        font-size: 1.3rem;
     }
     
-    h3 {
+    h3,
+    .subheading {
         font-family: 'Saira Extra Condensed', serif;
         font-weight: 700;
         text-transform: uppercase;
