@@ -99,7 +99,7 @@ video {
 }
 
 .section1 {
-    background: purple;
+    background: url('../img/bg-prez.jpg');
 }
 
 .section2 {
@@ -107,11 +107,98 @@ video {
 }
 
 .section3 {
-    background: red;
+    background: url('../img/bg-3.jpg');
 }
 
 .section1,
 .section2,
 .section3 {
-    height: 100vh;
+    height: 104vh;
+}
+
+/*************************** HEADER ***************************/
+/* NAV */
+.header {
+    /* background-color: rgba(2, 1, 1, 0.781); */
+    background-color: #bf936c;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    border: 1px solid;
+}
+
+.nav ul li a {
+    color: #fff;
+}
+
+.nav ul li:hover {
+    background-color: #f0ece2;
+    -moz-transition-duration: 1s;
+}
+
+.nav ul li:hover a {
+    color: #bf936c;
+}
+
+/*************************** MAIN ***************************/
+/* Section1 */
+.photo {
+    position: relative;
+    left: 20vw;
+    top: 27vh;
+    border-radius: 11px;
+    /* border: 1px solid red; */
+    width: 12vw;
+}
+
+.prez {
+    position: relative;
+    right: 7vw;
+    top: 28vh;
+}
+
+.prez h1 {
+    font-size: 2em;
+}
+
+.prez h2 {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.prez p {
+    margin-top: 30px;
+    text-align: justify;
+}
+
+/* Section2 */
+#competence ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    position: relative;
+    top: 30vh;
+    left: 7vw;
+}
+
+#competence ul li figure img {
+    height: 4vh;
+}
+
+#competence ul li figure:hover {
+    height: 7vh;
+}
+
+#competence ul li figure:hover img {
+    transform: scale(5.1);
+    box-shadow: 0 0 10px black;
+    /* color: #f87d42; */
+    /* background-color: #f87d42; */
+}
+
+figure img {
+    color: rgba(73, 68, 68, 0.5);
+}
+
+figcaption {
+    color: #fff;
+    /* background: rgba(0, 0, 0, 0.5); */
 }
