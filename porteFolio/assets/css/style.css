@@ -95,94 +95,24 @@ video {
 /********************* REGLAGE GENEREAUX *********************/
 .container-fluid {
     background: url('../img/pattern/dark-triangles.png') repeat;
+    height: 110vh;
+    /* width: 100vw; */
 }
 
-.container {
-    max-width: 1521px;
+/*************************** #prez ***************************/
+#prez img {
+    margin-top: 280px;
 }
 
-#aboutMe {
-    background: url('../img/bg-prez.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+#prez .card {
+    margin-top: 276px;
 }
 
-#competences {
-    background: url('../img/bg-5.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
+/************************** #competence  & realisation **************************/
 
-#experiences {
-    background: url('../img/bg-5.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#formations {
-    background: url('../img/bg-5.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#loisirs {
-    background: url('../img/bg-5.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#contact {
-    background: url('../img/bg-3.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-
-.section {
-    height: 91vh;
-}
-
-h3 {
-    color: #fff;
-}
-
-/********************* #aboutMe *********************/
-
-#aboutMe img {
-    margin-top: 176px;
-    margin-left: 186px;
-}
-
-
-#aboutMe .card {
-    margin-top: 601px;
-    margin-right: 101px;
-    margin-left: 92px;
-}
-
-/********************* #competences *********************/
-
-#competences ul {
+#competence ul,
+#realisation ul {
     display: flex;
+    list-style: none;
     justify-content: space-evenly;
-    list-style: none;
-    position: relative;
-    top: 11vh;
 }
-
-/*********************** realisation ***********************/
-
-
-#realisations ul {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    /*  position: relative;
-    bottom: 25vh;
-    left: 10vw;
-}
-
-#realisations li {
-    margin-left: 15px;
-    margin-right: 15px;
-} */
