@@ -19,23 +19,23 @@
 
 <body>
     <div class="container-fluid">
-        <header>
+        <header class="mb-5">
             <nav>
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" href="?=home">Accueil</a>
+                        <a class="nav-link active" href="?choix=home">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?=competence">Mon travail</a>
+                        <a class="nav-link" href="?choix=competence">Mon travail</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?=experience">Mes itinéraires</a>
+                        <a class="nav-link" href="?choix=experience">Mes itinéraires</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?=formation">Formation</a>
+                        <a class="nav-link" href="?choix=formation">Formation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?=contact">Me contacter</a>
+                        <a class="nav-link" href="?choix=contact">Me contacter</a>
                     </li>
                 </ul>
             </nav>

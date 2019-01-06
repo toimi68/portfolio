@@ -1,5 +1,5 @@
-</main>
-</div> <!-- script JS, JQUERY -->
+    </main>
+</div> 
 <footer>
     <div class="row">
         <div class="col">

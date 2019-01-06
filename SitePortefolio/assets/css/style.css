@@ -131,33 +131,15 @@ table {
 }
 
 /************************ REGLGE GENER ****************************/
-p {
-    color: #ffe6eb;
+body{
+    background: url(../img/pattern/dark_embroidery.png);
 }
 
-.container-fluid {
-    background: url('../bg/FondAccueil.jpg')no-repeat;
-    height: 94vh;
-}
-
-.container {
+section{
+    height: 85vh;
     margin: 0 auto;
-    height: 40vh;
 }
-
-footer {
-    background: #222831;
+footer{
+    background: #393e46;
     height: 15vh;
-}
-
-/************************** ACCUEIL **************************/
-#prez {
-    box-shadow: 3px 3px #0a0a0a,
-        -1em 0 .4em #605a5a;
-    border-radius: 2%;
-    /* margin: auto; */
-    height: 40vh;
-
-    position: relative;
-    top: 15vh;
 }
