@@ -7,7 +7,7 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'competence'){
     
     
     while($techno = $resultats->fetch(PDO::FETCH_ASSOC)){
-        debugV($techno['cptechnology']);
+        //debugV($techno);
         
         $languages .= '<div class="col-md-3 mt-5">';
         $languages .= '<div class="card mt-5 shadow-sm">';
@@ -30,3 +30,25 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'competence'){
         $languages .= '</div>';
     }
 }
+
+/************************************ Affichage des réalisations ************************************/
+$projects ='';
+$msg='';
+
+if(isset($_GET['choix']) && $_GET['choix'] == 'competence'){
+    $donnees = executeRequete("SELECT * FROM projects");
+    
+    if($donnees->rowCount() == 0){
+        $msg .= '<h2> En attente de projet</h2>';
+    }
+        while($project = $donnees->fetch(PDO::FETCH_ASSOC)){
+            debugV($project);
+
+            $projects .='<div class="col-lg-4">';
+            $projects .='<img class="rounded-circle" src="" alt="Generic placeholder image" width= "140" height= "140">';
+            $projects .='<h2>'.$project['pjtitle'].'</h2>';
+            $projects .='<p><a class="btn btn-secondary" href="'.$project['pjlink'].'" role="button"> Visiter & raquo;</a></p>';
+            $projects .='</div>';
+        }
+}
+

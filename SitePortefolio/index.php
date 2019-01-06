@@ -53,13 +53,20 @@ require 'controller/traitement.php';
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <h2>Mon travail :</h2>
+                                    <?php
+                                    echo $msg;
+                                    ?>
                                     <div class="col-lg-12 mt-5">
-                                        <div class="col-lg-4">
-                                            <img class="rounded-circle" src=" {{ project.pjlink }} " alt="Generic placeholder image" width="140" height="140">
-                                            <h2> {{project.pjtitle}} </h2>
-                                            <p><a class="btn btn-secondary" href=" {{project.pjlink}} " role="button">Visiter &raquo;</a></p>
-                                        </div><!-- /.col-lg-4 -->
+                                        <div class="row">
+                                            <!--<div class="col-lg-4">
+                                                <img class="rounded-circle" src=" {{ project.pjlink }} " alt="Generic placeholder image" width="140" height="140">
+                                                <h2> </h2>
+                                                <p><a class="btn btn-secondary" href=" {{project.pjlink}} " role="button">Visiter &raquo;</a></p>
+                                            </div>-->
+                                            <?php
+                                            echo $projects;
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
