@@ -131,15 +131,16 @@ table {
 }
 
 /************************ REGLGE GENER ****************************/
-body{
+/* body{
     background: url(../img/pattern/dark_embroidery.png);
-}
+} */
 
-section{
+section {
     height: 85vh;
     margin: 0 auto;
 }
-footer{
+
+footer {
     background: #393e46;
     height: 15vh;
 }
