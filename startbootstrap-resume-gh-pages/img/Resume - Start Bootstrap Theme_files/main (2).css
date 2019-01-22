@@ -1,0 +1,58 @@
+    /* navBar */
+    
+    #sideNav {
+        background-color: #062743 !important;
+    }
+    
+    .rounded-circle {
+        height: 18vh;
+        width: 15vw;
+    }
+    /* Sections */
+    
+    #apropos {
+        background-image: url('../img/fond_apropos.jpg');
+        background-repeat: no-repeat;
+        background-size: 126%;
+        /* background-color: red !important; */
+    }
+    
+    #competences {
+        background-image: url('../img/fondNoir_competences.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+    
+    #experiences {
+        background-image: url('../img/worker_def.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        margin-top: 5vh;
+    }
+    
+    #formations {
+        background-image: url('../img/fond_formations.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+    
+    #loisirs {
+        background-image: url('../img/fond_loisirs.jpg');
+        background-repeat: no-repeat;
+        background-size: 110%;
+    }
+    /*   typo  */
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .subheading,
+    p {
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #fff9e0;
+    }

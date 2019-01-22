@@ -1,8 +1,8 @@
-    </main>
-</div> 
+</main>
+</div>
 <footer>
     <div class="row">
-        <div class="col">
+        <div class="col mt-5">
             <div class="row">
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4">

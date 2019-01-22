@@ -1,0 +1,88 @@
+    /* navBar */
+    
+    #sideNav {
+        background-color: #062743 !important;
+    }
+    
+    #profil.img-fluid {
+        height: 45vh;
+        width: 15vw;
+    }
+    
+    .rounded-circle {
+        height: 18vh;
+        width: 15vw;
+    }
+    /* Sections */
+    
+    #apropos {
+        background-image: url('../img/fond_apropos.jpg');
+        background-repeat: no-repeat;
+        background-size: 126%;
+        /* background-color: red !important; */
+    }
+    
+    #competences {
+        background-image: url('../img/fondNoir_competences.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+    
+    #d-competences {
+        /* border: 1px solid purple; */
+        position: relative;
+        top: 25vh;
+    }
+    
+    #experiences {
+        background-image: url('../img/fondFormation.jpg');
+        background-repeat: no-repeat;
+        background-size: 180%;
+        /* margin-top: 5vh; */
+    }
+    
+    #formations {
+        background-image: url('../img/fondFormation.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+    
+    #loisirs {
+        background-image: url('../img/fond_loisirs.jpg');
+        background-repeat: no-repeat;
+        background-size: 110%;
+    }
+    /***   typo  ***/
+    
+    h1,
+    h2,
+    h4,
+    h5,
+    h6,
+    p {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 650;
+        text-transform: uppercase;
+        color: #fff9e0;
+    }
+    
+    h1,
+    h2,
+    h4,
+    h5,
+    h6 {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 2.5rem;
+    }
+    
+    p {
+        font-size: 1.3rem;
+    }
+    
+    h3,
+    .subheading {
+        font-family: 'Saira Extra Condensed', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #BD5D38;
+    }

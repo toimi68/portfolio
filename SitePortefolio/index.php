@@ -40,7 +40,7 @@ if (empty($_GET['choix']) || $_GET['choix'] == 'home') {
             <div class="col-lg-12">
                 <div class="row">
                     <?php
-echo $languages;
+echo $competence;
     ?>
                 </div>
                 <hr>
@@ -51,7 +51,7 @@ echo $msg;
                     <div class="col-lg-12 mt-5">
                         <div class="row">
                             <?php
-echo $projects;
+echo $projet;
     ?>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ echo $projects;
                         </tr>
                     </thead>
                     <tbody>
-                        <?php echo $formations; ?>
+                        <?php echo $diplome; ?>
                     </tbody>
                 </table>
             </div>
@@ -131,49 +131,48 @@ echo $projects;
     ?>
 <!-- Zone contact -->
 <section id="contact">
-    <form action="" method="POST">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mt-5">
-                    <form>
-                        <div class="form-row">
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Prénom" name="prenom" value="<?php if (isset($prenom)) {
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mt-5">
+                <form method="POST" id="myForm">
+                    <?php echo $msg ?>
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" placeholder="Prénom" name="prenom" value="<?php if (isset($prenom)) {
         echo $prenom;
     }
     ?>">
-                            </div>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" placeholder="Nom" name="nom" value="<?php if (isset($nom)) {
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" placeholder="Nom" name="nom" value="<?php if (isset($nom)) {
         echo $nom;
     }
     ?>">
-                            </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col mt-3">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email@gmail.com"
-                                    name="email" value="<?php if (isset($email)) {
+                    </div>
+                    <div class="form-group row">
+                        <div class="col mt-3">
+                            <input type="text" class="form-control" id="inputEmail3" placeholder="Email@gmail.com" name="email"
+                                value="<?php if (isset($email)) {
         echo $email;
     }
     ?>">
-                            </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col mt-3">
-                                <textarea name="message" id="" cols="82" rows="10" value="<?php if (isset($message)) {
+                    </div>
+                    <div class="form-group row">
+                        <div class="col mt-3">
+                            <textarea name="message" id="" cols="82" rows="10" value="<?php if (isset($message)) {
         echo $message;
     }
     ?>">
                                 </textarea>
-                            </div>
                         </div>
-                        <button class="btn btn-primary submit" type="submit">Envoyer</button>
-                    </form>
-                </div>
+                    </div>
+                    <button class="btn btn-primary submit" type="submit">Envoyer</button>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </section>
 <?php
 }
