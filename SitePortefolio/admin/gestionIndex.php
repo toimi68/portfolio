@@ -86,7 +86,7 @@ echo $msg;
                 </thead>
                 <tbody>
                     <?php
-echo $xp;
+echo $bo_xp;
     ?>
                 </tbody>
             </table>

@@ -201,13 +201,14 @@ if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
        ':idcompetence' => $_GET['id']
    ));
 
+    //Si il y a une correspondance alors j'affiche le message :
     if($req->rowCount()== 1){
         //die('l200');
         $msg .= '<div class="alert alert-success>La competence n°' . $_GET['id'] . ' a bien été supprimée </div>';
     }else{
         //die('l203');
         $msg .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
-    }
+    }//if($req->rowCount()
 }
 
 /* Modif des competences */
@@ -219,18 +220,38 @@ If(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){
     $result= $req->fetch(PDO::FETCH_ASSOC);
     //print_r($result);
 
-    //if(isset($_POST['cptechnology']) && strlen($_POST['cptechnology'])> 3 && strlen($_POST['cptechnology']) < 255 && isset($_POST['cplevel']) && is_numeric($_POST['cplevel'])){
+    if(isset($_POST['cptechnology']) && strlen($_POST['cptechnology'])> 3 && strlen($_POST['cptechnology']) < 255 && isset($_POST['cplevel']) && is_numeric($_POST['cplevel'])){
 
         $update ="UPDATE competences SET cptechnology=".$_POST['cptechnology']."cplevel=". $_POST['cplevel']."WHERE idcompetence = ".intval($_GET['id']);
         $req = $pdo->query($update);
     echo($req);
 
-  //  }
+   }// if(isset($_POST['cptechnology'])
 
+} // FIN IF(isset($-GET['action]))
 
+/*>>>>> GESTION COMPETENCE & PROJET >>>>>*/
 
+//Affichage des expériences :
 
+// Variable d'affichage :
+$bo_xp ="";
 
+if(isset($_GET['gestion']) && $_GET['gestion'] =='experience'){
+
+    $req = $pdo->query("SELECT * FROM xp ");
+
+    while($xp = $req->fetch(PDO::FETCH_ASSOC)){
+        $bo_xp .= '<tr>';
+        $bo_xp .= '<th scope="row">'.$xp['xpyear1'] .'-'.$xp['xpyear2'] .' </th> ';
+        $bo_xp .= '<td>'.$xp['xpfunction'] .'</td>';
+        $bo_xp .= '<td>'.$xp['xpemployer'].'</td>';
+        $bo_xp .= '<td>'.$xp['xpresume'] .'</td>';
+        $bo_xps .='<td><a href="../form/formModifComp.php?action=update&id='.$xp['idxp'].'"><i class="far fa-edit text-warning"></i></a></td>';
+        $bo_xp .='<td><a href="?gestion=experience&action=supp&id='.$xp['idxp'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
+        $bo_xp .= '</tr>';
+    }
 
 }
+
 
