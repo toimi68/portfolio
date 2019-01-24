@@ -11,7 +11,7 @@ session_start();
         <div class="col-lg-4 offset-2 mt-5">
             <form method="POST">
                 <?php
-                echo $xpAlert;
+                echo $msg;
                 ?>
                 <div class="form-row mb-3">
                     <div class="col-4 offset-1">

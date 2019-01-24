@@ -2,7 +2,7 @@
 require '../inc/admin/adminHeader.inc.php';
 require '../inc/init.inc.php';
 require '../controller/traitement.php';
-session_start();
+
 ?>
 <div class="container">
 

@@ -114,7 +114,7 @@ echo $xp;
                 </thead>
                 <tbody>
                     <?php
-                    echo $contenu;
+                    echo $bo_diplome;
                     ?>
                 </tbody>
             </table>

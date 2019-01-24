@@ -11,15 +11,15 @@ session_start();
         <div class="col-lg-4 offset-2 mt-5">
             <form method="POST">
                 <?php
-echo $msg;
-?>
+                echo $msg;
+                ?>
                 <div class="form-group">
                     <input type="hidden" class="form-control" id="text" aria-describedby="emailHelp" name="idcompetence"
-                        value=0>
+                           value=0>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="text" aria-describedby="emailHelp" name="cptechnology"
-                        placeholder="Technologie">
+                           placeholder="Technologie">
                 </div>
                 <div class="form-group">
                 </div>
