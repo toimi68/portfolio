@@ -4,8 +4,7 @@
 /*************************************************************************************************
                                         FRONT
  *************************************************************************************************/
-//Variable pour message d'avertissement :
-$msg = "";
+
 //Variable d'affichage :
 $competence = "";
 
@@ -138,8 +137,9 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'formation'){
 //Affichage des compétences :
 
 // Variable d'affichage :
-
 $bo_comps ="";
+//Variable pour message d'avertissement :
+$msgComp = "";
 
 if(isset($_GET['gestion']) && $_GET['gestion'] =='competence'){
 
@@ -171,13 +171,13 @@ if($_POST){
 
     // Vérification des champs du formulaire :
     if(!isset($_POST['cptechnology']) || strlen($_POST['cptechnology']) < 3 || strlen($_POST['cptechnology']) > 255){
-        $msg.= '<div class="alert alert-warning text-danger"> ** Indiquez une technologie</div>';
+        $msgComp.= '<div class="alert alert-warning text-danger"> * Indiquez une technologie</div>';
     }
     if(!isset($_POST['cplevel']) || !is_numeric($_POST['cplevel'])){
-        $msg.= '<div class="alert alert-warning text-danger"> ** Sélectionnez un niveau.</div>';
+        $msgComp.= '<div class="alert alert-warning text-danger"> * Sélectionnez un niveau.</div>';
     }
 
-    if(empty($msg)){
+    if(empty($msgComp)){
 
         //Protection contre les injections  JS & CSS :
         foreach ($_POST as $indices => $valeurs) {
@@ -204,38 +204,54 @@ if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
     //Si il y a une correspondance alors j'affiche le message :
     if($req->rowCount()== 1){
         //die('l200');
-        $msg .= '<div class="alert alert-success>La competence n°' . $_GET['id'] . ' a bien été supprimée </div>';
+        $msgComp .= '<div class="alert alert-success>La competence n°' . $_GET['id'] . ' a bien été supprimée </div>';
     }else{
         //die('l203');
-        $msg .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
+        $msgComp .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
     }//if($req->rowCount()
 }
 
 /* Modif des competences */
 
-If(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){
+
+ If(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){
     $sql="SELECT * FROM competences WHERE idcompetence = ".intval($_GET['id']);
    // echo $sql;
     $req = $pdo->query($sql);
     $result= $req->fetch(PDO::FETCH_ASSOC);
     //print_r($result);
 
-    if(isset($_POST['cptechnology']) && strlen($_POST['cptechnology'])> 3 && strlen($_POST['cptechnology']) < 255 && isset($_POST['cplevel']) && is_numeric($_POST['cplevel'])){
+   if(isset($_POST['cptechnology']) && strlen($_POST['cptechnology'])> 3 && strlen($_POST['cptechnology']) < 255 && isset($_POST['cplevel']) && is_numeric
+        ($_POST['cplevel'])){
 
-        $update ="UPDATE competences SET cptechnology=".$_POST['cptechnology']."cplevel=". $_POST['cplevel']."WHERE idcompetence = ".intval($_GET['id']);
-        $req = $pdo->query($update);
-    echo($req);
+       executeRequete("REPLACE INTO competence VALUES (:idcompetence, :cptechnology, :cplevel)",
+           array(
+               ':idcompetence' => $_POST['idcompetence'],
+               ':cptechnology' => $_POST['cptechnology'],
+               ':cplevel' => $_POST['cplevel'],
+
+           )
+
+       );
+
+       /* $update ="UPDATE competences SET cptechnology = ".$_POST['cptechnology']."cplevel = ". $_POST['cplevel']." WHERE idcompetence = ".intval($_GET['id']);
+       debugV($update);
+        $req = $pdo->query($update);*/
+
 
    }// if(isset($_POST['cptechnology'])
 
 } // FIN IF(isset($-GET['action]))
 
-/*>>>>> GESTION COMPETENCE & PROJET >>>>>*/
+/*--------------------------------------------*/
+
+/*>>>>> GESTION EXPERIENCE >>>>>*/
 
 //Affichage des expériences :
 
 // Variable d'affichage :
 $bo_xp ="";
+$msgXp ="";
 
 if(isset($_GET['gestion']) && $_GET['gestion'] =='experience'){
 
@@ -247,11 +263,62 @@ if(isset($_GET['gestion']) && $_GET['gestion'] =='experience'){
         $bo_xp .= '<td>'.$xp['xpfunction'] .'</td>';
         $bo_xp .= '<td>'.$xp['xpemployer'].'</td>';
         $bo_xp .= '<td>'.$xp['xpresume'] .'</td>';
-        $bo_xps .='<td><a href="../form/formModifComp.php?action=update&id='.$xp['idxp'].'"><i class="far fa-edit text-warning"></i></a></td>';
+        $bo_xps .='<td><a href="../form/formXp.php?action=update&id='.$xp['idxp'].'"><i class="far fa-edit text-warning"></i></a></td>';
         $bo_xp .='<td><a href="?gestion=experience&action=supp&id='.$xp['idxp'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
         $bo_xp .= '</tr>';
     }
 
+
 }
 
+//Ajout d'expériences :
+$select_date = '';
+$year = date('Y');
+$century = $year - 100;
 
+for ($i = $year; $i >= $century; $i--) {
+    if ($_POST && isset($_POST['xpyear1']) && $_POST['xpyear2'] == $i) {
+        $select_date .= '<option selected>' . $i . '</option>';
+    }
+    elseif (isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id']) && $_GET['id'] == $i){
+        $select_date .= '<option selected>' . $school_update['xpyear1'] . '</option>';$select_date .= '<option selected>' . $school_update['xpyear2'] . '</option>';
+    }
+    else{
+        $select_date .= '<option>' . $i . '</option>';
+    }
+}
+
+if($_POST){
+
+    if(!isset($_POST['xpyear1']) || !is_numeric($_POST['xpyear1'])){
+        $msgXp .='<div class="alert alert-danger">* Selectionnez une première date</div>';
+
+    }if(!isset($_POST['xpyear2']) || !is_numeric($_POST['xpyear2'])){
+        $msgXp .='<div class="alert alert-danger">* Selectionnez une deuxième date</div>';
+    }
+    if(!isset($_POST['xpfunction']) || strlen($_POST['xpfunction']) < 3 || strlen($_POST['xpfunction']) > 50){
+        $msgXp .='<div class="alert alert-danger">* Indiquez le titre du poste occupé (50 caractères max)</div>';
+    } if(!isset($_POST['xpemployer']) || strlen($_POST['xpemployer']) < 3 || strlen($_POST['xpemployer']) > 50){
+        $msgXp .='<div class="alert alert-danger">* Indiquez le nom de la société (50 caractères max)</div>';
+    } if(!isset($_POST['xpresume']) || strlen($_POST['xpresume']) < 3 || strlen($_POST['xpresume']) > 50){
+        $msgXp .='<div class="alert alert-danger">* Décrivez le poste (200 caractères max)</div>';
+    }
+
+    if(empty($msgXp)){
+        foreach ($_POST as $indices => $valeurs) {
+            $_POST['indice'] = htmlspecialchars($valeurs, ENT_QUOTES);
+        }
+
+        executeRequete("REPLACE INTO xp VALUES (:idxp, :xpyear1, :xpyear2, :xpfunction, :xpemployer, :xpresume)",
+            array(
+                ':idxp' => $_POST['idxp'],
+                ':xpfunction' => $_POST['xpfunction'],
+                ':xpemployer' => $_POST['xpemployer'],
+                ':xpresume' => $_POST['xpresume'],
+            )
+
+        );
+    }
+
+
+}

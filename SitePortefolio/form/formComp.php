@@ -11,7 +11,7 @@ session_start();
         <div class="col-lg-4 offset-2 mt-5">
             <form method="POST">
                 <?php
-echo $msg;
+echo $msgComp;
 ?>
                 <div class="form-group">
                     <input type="hidden" class="form-control" id="text" aria-describedby="emailHelp" name="idcompetence"

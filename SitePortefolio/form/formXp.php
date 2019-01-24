@@ -11,8 +11,12 @@ session_start();
         <div class="col-lg-4 offset-2 mt-5">
             <form method="POST">
                 <?php
-                echo $xpAlert;
+                echo $msgXp;
                 ?>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="text" aria-describedby="emailHelp" name="idcompetence"
+                           value=0>
+                </div>
                 <div class="form-row mb-3">
                     <div class="col-4 offset-1">
                         <select name="xpyear1" class="class-form-control custom-select">
@@ -38,8 +42,7 @@ session_start();
                 <div class="form-group">
                     <textarea name="xpresume" id="" cols="33" rows="5" placeholder="Resumé"></textarea>
                 </div>
-                <input type="
-                        submit" class="btn btn-outline-dark mt-4 text-success" value="Enregistrer">
+                <input type="submit" class="btn btn-outline-dark mt-4 text-success" value="Enregistrer">
             </form>
         </div>
     </div>
