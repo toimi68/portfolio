@@ -1,10 +1,14 @@
 <?php
+
 //require_once '../inc/function.php';
+
 /*************************************************************************************************
 CONNEXION & Deconnexion
  *************************************************************************************************/
 /*>>>>> CONEXION >>>>>*/
 //Variable d'affichage :
+$msg = "";
+$msgAdmin = "";
 //$isAdmin="";
 //Connexion à la BDD et récupération des infos admin :
 $req = $pdo->query("SELECT * FROM  user");
@@ -29,16 +33,54 @@ if(isset($_GET['action']) && $_GET['action'] === 'deconnexion'){
 }
 /*>>>>> MODIF DE L'ADMIN >>>>>*/
 
+// 1 -  Je récupère les infos pour la modification
+if(isset($_GET['action']) && $_GET['action'] == 'update' && ($_GET['id'])){
+    $req = $pdo->prepare("SELECT * FROM user WHERE iduser = :iduser");
+    $req->bindParam(':iduser', $_GET['id']);
+    $req->execute();
 
+    if($req->rowCount()> 0){
+        //Je récupère des infos en BDD pour afficher dans le formulaire de modification
+        $admin_update = $req->fetch(PDO::FETCH_ASSOC);
+    }
+}//FIN if(isset($_GET['action']) && $_GET['action'] == 'update'
+//1.2 Traitement du formulaire pour enregistrer en BDD :
+if($_POST) {
+    //Vérification des champs
+    if (!isset($_POST['uemail']) || !filter_var($_POST['uemail'], FILTER_VALIDATE_EMAIL) || !isset($_POST['upassword']) || !is_numeric($_POST['upassword'])) {
+        $msgAdmin .= '<div class="alert alert-warning text-danger">** L\'un des identifiant n\'est pas valide</div>';
+    }
 
+    //1.3 - Insertion en BDD si tout les champs sont correctes
+    if (empty($msgComp)) {
+        // a) assainissement des saisies de l'intertnaute
+        foreach ($_POST as $indice => $valeur) {
+            $_POST[$indice] = htmlspecialchars($valeur, ENT_QUOTES);
+        }
 
+        //b) enregistrement en BDD
+        $donnees = $pdo->prepare("REPLACE INTO user VALUES (:iduser, :uemail, :upassword)", array(
+                ':iduser' => $_POST['iduser'],
+                ':uemail' => $_POST['uemail'],
+                ':upassword' => $_POST['upassword'],
+            )
+        );
+        $donnees->bindparam(':iduser', $_POST['iduser']);
+        $donnees->bindParam(':uemail', $_POST['uemail']);
+        $donnees->bindParam(':upassword', $_POST['upassword']);
+        $donnees->execute();
+
+        $msg .= '<div class="alert alert-success">L\'enregistrement a bien été réalisé en BDD.</div>';
+    }// if(empty($msg)){
+
+}
 
 
 /*************************************************************************************************
-FRONT
+                                FRONT
  *************************************************************************************************/
 //Variable pour message d'avertissement :
-$msg = "";
+//$msg = "";
 //Variable d'affichage :
 $competence = "";
 /*----- Affichage des competences -----*/
@@ -50,9 +92,9 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'competence'){
         //debugV($comps);
 
         $competence .= '<div class="col-md-3 mt-5">';
-        $competence .= '<div class="card mt-5 shadow-sm">';
-        $competence .= '<i class="'.$comps['cptechnology'].'"></i>';
-        $competence .= '<div class ="card-body">';
+            $competence .= '<div class="card mt-5 shadow-sm">';
+                $competence .= '<i class="'.$comps['cptechnology'].'"></i>';
+                    $competence .= '<div class ="card-body">';
         if($comps['cplevel'] == 1){
             $competence .= '<p class="text-warning">Débutant</p>';
         }elseif($comps['cplevel'] == 2){
@@ -63,10 +105,10 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'competence'){
             $competence .= '<p class="text-success">Maitrise</p>';
         }
 
-        $competence .= '<div class ="d-flex justify-content-between align-items-center">';
-        $competence .= '</div>';
-        $competence .= '</div>';
-        $competence .= '</div>';
+                        $competence .= '<div class ="d-flex justify-content-between align-items-center">';
+                        $competence .= '</div>';
+                    $competence .= '</div>';
+            $competence .= '</div>';
         $competence .= '</div>';
     }
 }
@@ -136,8 +178,25 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'formation'){
         $langue .= '</td>';
     }
 }
+
 /*************************************************************************************************
-BACK-OFFICE
+                                   ENREGISTREMENT CONTACT BDD
+ *************************************************************************************************/
+if (!empty($_POST)) {
+    extract($_POST);
+    $success = (empty($prenom) || empty($nom) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || empty($message)) ? false : true;
+    $failedPrenom = (empty($prenom)) ? 'Saisisez votre prénom.' : null;
+    $failedNom = (empty($nom)) ? 'Saisisez votre nom.' : null;
+    $failedPEmail = (empty($email)) ? 'Saisisez un mail valide.' : null;
+    $failedMessage = (empty($message)) ? 'Saisissez votre message.' : null;
+    if ($success) {
+        $contact = new Contact();
+        $contact->contactAction($prenom, $nom, $email, $message);
+    }
+}
+
+/*************************************************************************************************
+                                                BACK-OFFICE
  *************************************************************************************************/
 
 /*>>>>> GESTION COMPETENCE & PROJET >>>>>*/
@@ -147,19 +206,19 @@ BACK-OFFICE
 // Variable d'affichage :
 $bo_comps ="";
 $msgComp ="";
-if(isset($_GET['gestion']) && $_GET['gestion'] =='competence'){
-    $req = $pdo->query("SELECT * FROM competences ");
+if(isset($_GET['gestion']) && $_GET['gestion'] == 'competence'){
+    $req = $pdo->query("SELECT * FROM competences");
     while($competence = $req->fetch(PDO::FETCH_ASSOC)){
-        $bo_comps .= '<tr>';
-        $bo_comps .= '<th scope="row"><i class="'.$competence['cptechnology'].'"></i></th> ';
+        $bo_comps .='<tr>';
+        $bo_comps .= '<th scop="row"><i class="'.$competence['cptechnology'].'"></i></th>';
         if($competence['cplevel'] == 1){
-            $bo_comps .= '<td class="text-warning">Débutant</td>';
-        }elseif($competence['cplevel'] == 2){
-            $bo_comps .= '<td class="text-info">Intermédiaire</td>';
-        }elseif($competence['cplevel']== 3){
-            $bo_comps .= '<td class="text-primary">Avancé</td>';
-        }elseif($competence['cplevel']== 4){
-            $bo_comps .= '<td class="text-success">Maitrise</td>';
+            $bo_comps .='<td class=" text-danger">Débutant</td>';
+        }elseif ($competence['cplevel'] == 2){
+            $bo_comps .='<td class=" text-warning">Intermédiaire</td>';
+        }elseif ($competence['cplevel'] == 3){
+            $bo_comps .='<td class=" text-primary">Avancé</td>';
+        }elseif ($competence['cplevel'] == 4){
+            $bo_comps .='<td class=" text-success">Maîtrisé</td>';
         }
         $bo_comps .='<td><a href="../form/formComp.php?action=update&id='.$competence['idcompetence'].'"><i class="far fa-edit text-warning"></i></a></td>';
         $bo_comps .='<td><a href="?gestion=competence&action=supp&id='.$competence['idcompetence'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
@@ -195,10 +254,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'update' && ($_GET['id'])){
     $req->bindParam(':idcompetence', $_GET['id']);
     $req->execute();
 
-    if($req->rowCount() > 0){
+    //if($req->rowCount() > 0){
         //Je récupère des infos en BDD pour afficher dans le formulaire de modification
         $comp_update = $req->fetch(PDO::FETCH_ASSOC);
-    }
+    //}
 }//FIN if(isset($_GET['action']) && $_GET['action'] == 'update'
 
 //1.2 Traitement du formulaire pour enregistrer en BDD :
@@ -233,7 +292,6 @@ if($_POST){
     }// if(empty($msg)){
 
 } //FIN if(POST)
-
 /*
 *AFFICHAGE DES PROJETS
 */
@@ -321,9 +379,34 @@ if($_POST){
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 /*>>>>> GESTION EXPERIENCE >>>>>*/
-
+/*
+*AFFICHAGE DES EXPERIENCES
+*/
+// Variable d'affichage :
 $bo_xp ="";
 $msgXp ="";
+$xp_update="";
+//$xp_update="";
+if(isset($_GET['gestion']) && $_GET['gestion'] =='experience'){
+    $req = $pdo->query("SELECT * FROM xp ORDER BY xpyear2 DESC");
+    while($xps = $req->fetch(PDO::FETCH_ASSOC)){
+        //var_dump(xp_update['idxp']);
+        //$bo_xp .= '<tr>';
+        if($xps['xpyear1'] == $xps['xpyear2']){
+            $bo_xp .= '<th>Depuis </th>';
+        } else{
+            $bo_xp .= '<th>'.$xps['xpyear1'].'</th>';
+        }
+        $bo_xp .= '<th>'.$xps['xpyear2'].'</th>';
+        $bo_xp .= '<td>'.$xps['xpfunction'].'</td>';
+        $bo_xp .= '<td>'.$xps['xpemployer'].'</td>';
+        $bo_xp .= '<td>'.$xps['xpresume'].'</td>';
+
+        $bo_xp .='<td><a href="../form/formXp.php?action=update&id='.$xps['idxp'].'"><i class="far fa-edit text-warning"></i></a></td>';
+        $bo_xp .='<td><a href="?gestion=competence&action=supp&id='.$xps['idxp'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
+        $bo_xp .= '</tr>';
+    }
+}
 
 /*
 *SUPPRESSION DES EXPERIENCES
@@ -341,44 +424,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
         $msgXp .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
     }
 }
-
-
-/*
-*AFFICHAGE DES EXPERIENCES
-*/
-// Variable d'affichage :
-
-if(isset($_GET['gestion']) && $_GET['gestion'] =='experience'){
-    $req = $pdo->query("SELECT * FROM xp ORDER BY xpyear2 DESC");
-    while($xps = $req->fetch(PDO::FETCH_ASSOC)){
-        $bo_xp .= '<tr>';
-        if($xps['xpyear1'] == $xps['xpyear2']){
-            $bo_xp .= '<th>Depuis </th>';
-        } else{
-            $bo_xp .= '<th>'.$xps['xpyear1'].'</th>';
-        }
-        $bo_xp .= '<th>'.$xps['xpyear2'].'</th>';
-        $bo_xp .= '<td>'.$xps['xpfunction'].'</td>';
-        $bo_xp .= '<td>'.$xps['xpemployer'].'</td>';
-        $bo_xp .= '<td>'.$xps['xpresume'].'</td>';
-
-        $bo_xp .='<td><a href="../form/formXp.php?action=update&id='.$xps['idxp'].'"><i class="far fa-edit text-warning"></i></a></td>';
-        $bo_xp .='<td><a href="?gestion=experience&action=supp&id='.$xps['idxp'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
-        $bo_xp .= '</tr>';
-    }
-}
-
-
 /*
 *AJOUT & MODIFICATION DES EXPERIENCES
 */
-$select_date = '';
-$year = date('Y');
-$century = $year - 100;
 
-$select_date2 = '';
-$year2 = date('Y');
-$century2 = $year - 100;
 // 1 -  Je récupère les infos pour la modification
 
 if(isset($_GET['action']) && $_GET['action'] == 'update' && ($_GET['id'])){
@@ -392,7 +441,14 @@ if(isset($_GET['action']) && $_GET['action'] == 'update' && ($_GET['id'])){
 //    }
 }//FIN if(isset($_GET['action']) && $_GET['action'] == 'update'
 
-// /!\ A REVOIR !!!!!!!!!!
+$select_date = '';
+$year = date('Y');
+$century = $year - 100;
+
+$select_date2 = '';
+$year2 = date('Y');
+$century2 = $year - 100;
+
 while($year >= $century){
     if(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id']) && $_GET['id'] == $xp_update['idxp'] && $xp_update['xpyear1'] ==
         $year && isset($_GET['id']) && $_GET['id'] == $xp_update['idxp'] && $xp_update['xpyear2'] == $year2){
@@ -404,7 +460,7 @@ while($year >= $century){
         $select_date2 .= '<option selected>' . $year2 . '</option>';
     } else {
         $select_date .= '<option>' . $year . '</option>';
-        $select_date2 .= '<option>' . $year2 . '</option>';
+        $select_date2 .= '<option selected>' . $year2 . '</option>';
     }
     $year--;
     $year2--;
@@ -446,12 +502,12 @@ if($_POST){
                 ':xpresume' => $_POST['xpresume']
             )
         );
-        $donnees->bindparam(':idxp', $_POST['idxp']);
-        $donnees->bindParam(':xpyear1', $_POST['xpyear1']);
-        $donnees->bindParam(':xpyear2', $_POST['xpyear2']);
-        $donnees->bindParam(':xpfunction',$_POST['xpfunction']);
-        $donnees->bindParam(':xpemployer', $_POST['xpemployer']);
-        $donnees->bindParam(':xpresume', $_POST['xpresume']);
+        //$donnees->bindparam(':idxp', $_POST['idxp']);
+        //$donnees->bindParam(':xpyear1', $_POST['xpyear1']);
+        //$donnees->bindParam(':xpyear2', $_POST['xpyear2']);
+        //$donnees->bindParam(':xpfunction',$_POST['xpfunction']);
+        //$donnees->bindParam(':xpemployer', $_POST['xpemployer']);
+        //$donnees->bindParam(':xpresume', $_POST['xpresume']);
         $donnees->execute();
 
         $msg .= '<div class="alert alert-success">L\'enregistrement a bien été réalisé en BDD.</div>';
@@ -461,14 +517,68 @@ if($_POST){
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 /*>>>>> GESTION FORMATION >>>>>*/
+/*
+*AFFICHAGE DES FORMATIONS
+*/
 // Variable d'affichage :
 $bo_diplome ="";
 $msgFormation ="";
+$school_update ="";
 
+
+if(isset($_GET['gestion'])&& $_GET['gestion'] == 'formation'){
+
+    $formation = $pdo->query("SELECT * FROM schooling ORDER BY sgdate DESC");
+
+    while($schooling = $formation->fetch(PDO::FETCH_ASSOC)){
+        $bo_diplome .= '<tr>';
+        $bo_diplome .= '<td>'.$schooling['.sgdate.'].'</td>';
+        $bo_diplome .= '<td>'.$schooling['sgtitle'] .'</td>';
+        $bo_diplome .= '<td>'.$schooling['sgsubtitle'].'</td>';
+        $bo_diplome .= '<td>'.$schooling['sgdescription'].'</td>';
+        $bo_diplome .= '<td><a href="../form/formFormation.php?action=update?id='.$schooling['idschooling'].'"><i class="far fa-edit text-warning"></i></a></td>';
+        $bo_diplome .= '<td><a href="?gestion=formation&action=supp?id='.$schooling['idschooling'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
+        $bo_diplome .= '</tr>';
+
+    }
+
+}
 
 /*
-*SUPPRESSION DES FORMATIONS
+ *SUPPRESSION DES FORMATIONS
 */
+if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
+    $supForm = executeRequete("DELETE FROM schooling WHERE idschooling = :idschooling", array(
+        ':idschooling'=>$_GET['id']
+    ));
+
+    $msgFormation .= '<div class="alert alert-success>La formation n°' . $_GET['id'] . ' a bien été supprimée </div>';
+}else{
+    $msgFormation .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
+}
+
+/*
+AJOUT & MODIFICATION DES EXPERIENCES
+*/
+
+/*
+if(isset($_GET['gestion']) && $_GET['gestion'] =='formation'){
+    $req = $pdo->query("SELECT * FROM schooling ORDER BY sgdate DESC");
+    while($schooling = $req->fetch(PDO::FETCH_ASSOC)){
+        $bo_diplome .= '<tr>';
+        $bo_diplome .= '<td>'.$schooling['sgdate'].'</td>';
+        $bo_diplome .= '<th>'.$schooling['sgtitle'].'</th>';
+        $bo_diplome .= '<th>'.$schooling['sgsubtitle'].'</th>';
+        $bo_diplome .= '<td>'.$schooling['sgdescription'].'</td>';
+        $bo_diplome .='<td><a href="../form/formFormation.php?action=update&id='.$schooling['idschooling'].'"><i class="far fa-edit
+        text-warning"></i></a></td>';
+        $bo_diplome .='<td><a href="?gestion=formation&action=supp&id='.$schooling['idschooling'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
+        $bo_diplome .= '</tr>';
+    }
+}*/
+/*
+*SUPPRESSION DES FORMATIONS
+
 if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
     $req= executeRequete("DELETE FROM schooling WHERE idschooling = :idschooling", array(
         ':idschooling' => $_GET['id']
@@ -481,31 +591,11 @@ if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
 
         $msgFormation .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
     }
-}
+}*/
 /*
-*AFFICHAGE DES FORMATIONS
-*/
+*AJOUT & MODIFICATION DES FORMATIONS
 
-if(isset($_GET['gestion']) && $_GET['gestion'] =='formation'){
-    $req = $pdo->query("SELECT * FROM schooling ORDER BY sgdate DESC");
-    while($schooling = $req->fetch(PDO::FETCH_ASSOC)){
-        $bo_diplome .= '<tr>';
-        $bo_diplome .= '<td>'.$schooling['sgdate'].'</td>';
-        $bo_diplome .= '<th>'.$schooling['sgtitle'].'</th>';
-        $bo_diplome .= '<th>'.$schooling['sgsubtitle'].'</th>';
-        $bo_diplome .= '<td>'.$schooling['sgdescription'].'</td>';
-        $bo_diplome .='<td><a href="../form/formFormation.php?action=update&id='.$schooling['idschooling'].'"><i class="far fa-edit text-warning"></i></a></td>';
-        $bo_diplome .='<td><a href="?gestion=formation&action=supp&id='.$schooling['idschooling'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
-        $bo_diplome .= '</tr>';
-    }
-}
 
-/*
-*AJOUT & MODIFICATION DES EXPERIENCES
-*/
-//$select_date = '';
-//$year = date('Y');
-//$century = $year - 100;
 
 // 1 -  Je récupère les infos pour la modification
 if(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){
@@ -519,6 +609,11 @@ if(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){
     }//if($req->rowCount() > 0
 
 }//FIN if(isset($_GET['action']) && $_GET['action'] == 'update'
+
+
+$select_date = '';
+$year = date('Y');
+$century = $year - 100;
 
 while($year >= $century){
     if(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id']) && $_GET['id'] == $school_update['idschooling'] &&
@@ -536,12 +631,15 @@ while($year >= $century){
 //1.2 Traitement du formulaire pour enregistrer en BDD :
 if($_POST){
     //Vérification des champs
-    if(!isset($_POST['sgdate']) || !is_numeric($_POST['sgdate']) || $_POST['sgdate'] > date('Y') || $_POST['sgdate'] < $century){
-        $msgFormation .= '<div class="alert alert-warning text-danger">** Sélectionnez une date</div>';
-    }
-    if(!isset($_POST['sgtitle']) || strlen($_POST['sgtitle']) < 3 || strlen($_POST['sgtitle']) > 100){
-        $msgFormation .= '<div class="alert alert-warning text-danger">** Indiquez le diplome obtenu </div>';
-    }
+
+   if(!isset($_POST['sgdate']) || !is_numeric($_POST['sgdate']) || $_POST['sgdate'] > date('Y') || $_POST['sgdate'] < $century){
+
+       $msgFormation .= '<div class="alert alert-warning text-danger">** Sélectionnez une date</div>';
+
+   }
+   if(!isset($_POST['sgtitle']) || strlen($_POST['sgtitle']) < 3 || strlen($_POST['sgtitle']) > 100){
+       $msgFormation .= '<div class="alert alert-warning text-danger">** Indiquez le diplome obtenu </div>';
+   }
     if(!isset($_POST['sgtitle']) || strlen($_POST['sgtitle']) < 3 || strlen($_POST['sgsubtitle']) > 150){
         $msgFormation .= '<div class="alert alert-warning text-danger">** Indiquez la spécialité </div>';
     }
@@ -575,17 +673,17 @@ if($_POST){
     }// if(empty($msg)){
 
 } //FIN if(POST)
-
+*/
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 /*>>>>> GESTION DES LANGUES >>>>>*/
 /*
 *AFFICHAGE DES LANGUES
-*/
+
 // Variable d'affichage :
 $bo_langue ="";
 $msgLangue ="";
 if(isset($_GET['gestion']) && $_GET['gestion'] =='formation'){
-    $req = $pdo->query("SELECT * FROM languages");
+    //$req = $pdo->query("SELECT * FROM languages");
     while($lang = $req->fetch(PDO::FETCH_ASSOC)){
         $bo_langue .= '<tr>';
         $bo_langue .= '<td>'.$lang['lglanguage'].'</td>';
@@ -602,34 +700,34 @@ if(isset($_GET['gestion']) && $_GET['gestion'] =='formation'){
         $bo_langue .='<td><a href="?gestion=formation&action=supp&id='.$lang['idlanguage'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
         $bo_langue .= '</tr>';
     }
-}
+}*/
 /*
 *SUPPRESSION DES LANGUES
-*/
+
 if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
-    $req= executeRequete("DELETE FROM languages WHERE idlanguage = :idlanguage", array(
+    $reqlg= executeRequete("DELETE FROM languages WHERE idlanguage = :idlanguage", array(
         ':idlanguage' => $_GET['id']
     ));
 
-    if($req->rowCount()== 1){
+    if($reqlg->rowCount()== 1){
 
         $msgLangue .= '<div class="alert alert-success>La langue n°' . $_GET['id'] . ' a bien été supprimée </div>';
     }else{
 
         $msgLangue .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
     }
-}
+}*/
 /*
 *AJOUT & MODIFICATION DES LANGUES
-*/
+
 
 // 1 -  Je récupère les infos pour la modification
 if(isset($_GET['action']) && $_GET['action'] == 'update' && ($_GET['id'])){
-    $req = $pdo->prepare("SELECT * FROM languages WHERE idlanguage = :idlanguage");
-    $req->bindParam(':idlanguage', $_GET['id']);
-    $req->execute();
+    $lg = $pdo->prepare("SELECT * FROM languages WHERE idlanguage = :idlanguage");
+    $lg->bindParam(':idlanguage', $_GET['id']);
+    $lg->execute();
 
-    if($req->rowCount()> 0){
+    if($lg->rowCount()> 0){
         //Je récupère des infos en BDD pour afficher dans le formulaire de modification
         $langue_update = $req->fetch(PDO::FETCH_ASSOC);
     }
@@ -667,4 +765,4 @@ if($_POST){
         $msg .= '<div class="alert alert-success">L\'enregistrement a bien été réalisé en BDD.</div>';
     }// if(empty($msg)){
 
-} //FIN if(POST)
+} //FIN if(POST)*/

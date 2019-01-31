@@ -41,7 +41,7 @@ if (isset($_GET['choix']) && $_GET['choix'] == 'competence') {
     if ($donnees->rowCount() == 0) {
         $msg .= '<h2> En attente de projet</h2>';
     }
-    while ($project = $donnees->fetch(PDO::FETCH_ASSOC)) {
+    while ($project = $donnees->fetch(PDO::FETCH_OBJ)) {
         //debugV($project);
 
         $projects .= '<div class="col-lg-4">';

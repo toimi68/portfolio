@@ -30,7 +30,7 @@
                     des
                     formations</a>
                 <!-- <input type="submit" value="Deconnexion" class=" btn btn-outline-dark text-danger"> -->
-                <a href="?action=quitter" class=" btn btn-outline-dark text-danger">Deconnexion</a>
+                <a href="?action=deconnexion" class=" btn btn-outline-dark text-danger">Deconnexion</a>
             </nav>
         </header>
         <main>

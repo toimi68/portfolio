@@ -2,7 +2,7 @@
 require '../inc/admin/adminHeader.inc.php';
 require '../inc/init.inc.php';
 require '../controller/traitement.php';
-session_start();
+//session_start();
 
 if (empty($_GET)) {
     ?>
@@ -58,8 +58,8 @@ if (empty($_GET)) {
                 </thead>
                 <tbody>
                     <?php
-echo $msg;
-    ?>
+                    echo $bo_projet;
+                    ?>
                 </tbody>
             </table>
             <a href="../form/formProjet.php?" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>
@@ -74,6 +74,9 @@ echo $msg;
 <div class="row">
     <div class="col-lg-12 mt-5">
         <div class="container">
+            <?php
+            echo $msg;
+            ?>
             <table class="table table-striped table-dark " border="1px solid red">
                 <thead>
                     <tr>
@@ -86,8 +89,8 @@ echo $msg;
                 </thead>
                 <tbody>
                     <?php
-echo $xp;
-    ?>
+                    echo $bo_xp;
+                    ?>
                 </tbody>
             </table>
             <a href="../form/formXp.php" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>
@@ -140,8 +143,8 @@ echo $xp;
                 </thead>
                 <tbody>
                     <?php
-echo $langue;
-    ?>
+                    echo $bo_langue;
+                    ?>
                 </tbody>
             </table>
             <a href="../form/formLang.php" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>

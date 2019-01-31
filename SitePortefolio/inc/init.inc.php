@@ -15,4 +15,5 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
+
 require_once 'function.php';
