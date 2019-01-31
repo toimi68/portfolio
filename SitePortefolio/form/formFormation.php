@@ -17,17 +17,20 @@ require '../controller/traitement.php';
             <form method="POST" action="../admin/gestionIndex.php?gestion=formation">
                 <?php
                 debugV($school_update['sgdate']);
+                debugV($school_update['sgsubtitle']);
                 echo $msg;
                 echo $msgFormation;
                 ?>
                 <input type="hidden" name="idschooling" value="<?php  if (isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){echo
-                $school_update['idschooling']; }
+                $school_update['idschooling'];}
                 else { echo "0";}?>"> <!-- champ caché utile pour la modification d'un élément existant car on a besoin
 	            de le
 	            connaître pour la requête SQL REPLACE INTO qui se comporte comme un UPDATE en présence d'un ID existant. La value à 0 permet de spécifier que l'ID n'existe pas, donc que REPLACE INTO doit se comporter comme un INSERT pour créer la ligne en BDD -->
-                <div class="form-group col-4">
-                    <select name="sgdate" class="form-control custom-select">
-                        <option value=""><?php echo $school_update['sgdate'] ?? $_POST['sgdate'] ?? 'Année' ?></option>
+                <div class="form-group col-5">
+                    <select name="sgdate" class="class-form-control custom-select">
+                        <option value="<?php echo $school_update['sgdate'] ??
+                            $_POST['sgdate'] ?? 'Année' ?>"><?php echo $school_update['sgdate'] ??
+                                $_POST['sgdate'] ?? 'Année' ?></option>
                         <?php
                         echo $select_date;
                         ?>
@@ -35,7 +38,7 @@ require '../controller/traitement.php';
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="text" name="sgtitle" placeholder="Diplome" value="<?php echo $school_update['sgtitle'] ??
-                        $_POST['sgtitle'] ?? '' ?>">
+                        $_POST['sgtitle'] ?? 'Diplôme' ?>">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="text" name="sgsubtitle" placeholder="spécialité" value="<?php echo
