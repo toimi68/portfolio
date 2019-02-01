@@ -13,27 +13,7 @@ if (empty($_GET['choix']) || $_GET['choix'] == 'home') {
             <div class="row">
                 <div class="meny-arrow"></div>
                 <div class="contents">
-                    <div class="profile-card-wrap">
-                        <input id="check" type="checkbox" class="check"><label for="check" class="toggle"> +</label> <!--bouton et association image-->
 
-                        <!--<div class="content" data-text=" ALPHA DIALLO développeur web">
-                           <div class="title">@Alpha Diallo</div>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis rerum rem labore molestiae nam libero quis,
-                               sint atque excepturi debitis.</p>
-                       </div>
-                       <div class="link-info">
-                           <div class="social">
-                               <a class="link fb" href="#" target="_blank"><i class="fab fa-facebook"></i></a>
-                               <a class="link tw" href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                               <a class="link cp" href="#" target="_blank"><i class="fab fa-codepen"></i></a>
-                               <a class="link pi" href="#" target="_blank"><i class="fab fa-pinterest"></i></a>
-                               <a class="link li" href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                               <a class="link yt" href="contact.html" target="_blank"><i class="fas fa-envelope"></i></a>
-                               <a class="link gp" href="" target="_blank"><i class="fas fa-phone-square"></i></a>
-                           </div>
-                           <div class="photo"></div>
-                       </div>
-                   </div>-->
 
                   <div class="col-lg-12 mt-5">
                        <div class="row">
@@ -153,46 +133,33 @@ echo $projet;
 <?php
 } elseif (isset($_GET['choix']) && $_GET['choix'] == 'contact') {
     ?>
-<!-- Zone contact -->
+<!-- Zone contact-->
 <section id="contact">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mt-5">
-                <form method="POST" id="myForm">
-                    <?php echo $msg ?>
+                <form method="POST" >
+                    <?php //debugV($_POST);?>
                     <div class="form-row">
                         <div class="col-lg-6">
-                            <input type="text" class="form-control" placeholder="Prénom" name="prenom" value="<?php if (isset($prenom)) {
-        echo $prenom;
-    }
-    ?>">
+                            <input type="text" class="form-control" placeholder="Prénom" name="prenom" value="<?php if (isset($prenom)){echo $prenom;}?>">
                         </div>
                         <div class="col-lg-6">
-                            <input type="text" class="form-control" placeholder="Nom" name="nom" value="<?php if (isset($nom)) {
-        echo $nom;
-    }
-    ?>">
+                            <input type="text" class="form-control" placeholder="Nom" name="nom" value="<?php if (isset($nom)){echo $nom;}?>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col mt-3">
-                            <input type="text" class="form-control" id="inputEmail3" placeholder="Email@gmail.com" name="email"
-                                value="<?php if (isset($email)) {
-        echo $email;
-    }
-    ?>">
+                            <input type="text" class="form-control" placeholder="Email@gmail.com" name="email" value="<?php if (isset($email)){echo $email;}?>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col mt-3">
-                            <textarea name="message" id="" cols="82" rows="10" value="<?php if (isset($message)) {
-        echo $message;
-    }
-    ?>">
-                                </textarea>
+                            <textarea name="message" id="" cols="82" rows="10" value="<?php if (isset($message)){echo $message;}?>">
+                            </textarea>
                         </div>
                     </div>
-                    <button class="btn btn-primary submit" type="submit">Envoyer</button>
+                    <input type="submit" class="btn btn-outline-dark mt-4 text-success" value="Envoyer">
                 </form>
             </div>
         </div>

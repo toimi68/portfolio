@@ -1,7 +1,7 @@
 <?php
 //include '../inc/header.inc.php';
 require '../inc/init.inc.php';
-require '../controller/traitementOld.php';
+require '../controller/traitement.php';
 session_start();
 ?>
 

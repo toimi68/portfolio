@@ -15,5 +15,7 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
+// Constante qui contient le chemein du site :
+define('RACINE_SITE', '2_Production/SitePortefolio/');
 
 require_once 'function.php';
