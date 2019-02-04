@@ -1,18 +1,18 @@
 <?php
-require '../inc/admin/adminHeader.inc.php';
+require '../inc/admin/formHeader.inc.php';
 require '../inc/init.inc.php';
 require '../controller/traitement.php';
 
 ?>
-<div class="container">
+ss="container m-5">
 
     <div class="row">
         <h5>
             <?php
             if(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){
-                echo 'Modifier une projet : ';
+                echo '<h3>Modifier une projet :</h3>h ';
             } else {
-                echo 'Ajouter une cprojet: ';
+                echo '<h3>Ajouter une cprojet: </h3>h';
             }
             ?>
         </h5>

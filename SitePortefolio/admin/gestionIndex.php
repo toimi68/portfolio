@@ -100,13 +100,13 @@ if (empty($_GET)) {
 <?php
 } elseif (isset($_GET['gestion']) && $_GET['gestion'] == 'formation') {
     ?>
-<!-- gestion formation -->
-<h3>Gestion des formations :</h3>
-<div class="row">
-    <div class="col-lg-12 mt-5">
-        <div class="container">
-            <table class="table table-striped table-dark" border="1px solid red">
-                <thead>
+    <!-- gestion formation -->
+    <h3>Gestion des formations :</h3>
+    <div class="row">
+        <div class="col-lg-12 mt-5">
+            <div class="container">
+                <table class="table table-striped table-dark" border="1px solid red">
+                    <thead>
                     <tr>
                         <th>Années</th>
                         <th>Diplome</th>
@@ -114,47 +114,43 @@ if (empty($_GET)) {
                         <th>Description</th>
                         <th colspan="2">Action</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php
                     echo $bo_diplome;
                     ?>
-                </tbody>
-            </table>
-            <a href="../form/formFormation.php" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>
+                    </tbody>
+                </table>
+                <a href="../form/formFormation.php" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>
+            </div>
         </div>
     </div>
-</div>
 
 
-
-<!-- gestion language -->
-<h3>Gestion des languages :</h3>
-<div class="row">
-    <div class="col-lg-12 mt-5">
-        <div class="container">
-            <table class="table table-striped table-dark " border="1px solid red">
-                <thead>
+    <!-- gestion language -->
+    <h3>Gestion des languages :</h3>
+    <div class="row">
+        <div class="col-lg-12 mt-5">
+            <div class="container">
+                <table class="table table-striped table-dark " border="1px solid red">
+                    <thead>
                     <tr>
                         <th>Langue</th>
                         <th>Niveau</th>
                         <th colspan="2">Action</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php
                     echo $bo_langue;
                     ?>
-                </tbody>
-            </table>
-            <a href="../form/formLang.php" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>
+                    </tbody>
+                </table>
+                <a href="../form/formLang.php" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>
+            </div>
         </div>
     </div>
-</div>
-<?php
-
-}
-?>
-</body>
-
-</html>
+    <?php
+    }
+    require '../inc/admin/adminFooter.inc.php';
+    ?>

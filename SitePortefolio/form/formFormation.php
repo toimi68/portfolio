@@ -1,16 +1,17 @@
 <?php
-require '../inc/admin/adminHeader.inc.php';
+require '../inc/admin/formHeader.inc.php';
 require '../inc/init.inc.php';
 require '../controller/traitement.php';
 ?>
-<div class="container">
+
+<div class="container m-5">
 
     <div class="row">
         <h5><?php
             if(isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])){
-                echo 'Modifier une formation : ';
+                echo '<h3>Modifier une formation :</h3> ';
             } else {
-                echo 'Ajouter une formation : ';
+                echo '<h3>Ajouter une formation : </h3>';
             }
             ?></h5>
         <div class="col-lg-4 offset-2 mt-5">

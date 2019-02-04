@@ -6,12 +6,18 @@
             <div class="row">
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4">
-                    <div class="navbar">
-                        <a class="nav-item nav-link" href="#"><i class="fab fa-github-square"></i> <span class="sr-only"></span></a>
-                        <a class="nav-item nav-link" href="#"><i class="fab fa-linkedin"></i></a>
+                    <div class="nav">
+
                     </div>
                 </div>
-                <div class="col-lg-4"></div>
+                <div class="col-lg-4 nav justify-content-start">
+                    <a class="nav-item nav-link" href="https://github.com/alphaMarDiallo">
+                        <i class="fab fa-github-square fa-2x"></i>
+
+                    </a>
+                    <a class="nav-item nav-link" href="#"><i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -22,7 +28,7 @@
     crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
-<script src="js/meny.js"></script>
+<script type="text/javascript" src="assets/js/jquery.js"></script>
 <script type="text/javascript"src="assets/js/meny.js"></script>
 </body>
 

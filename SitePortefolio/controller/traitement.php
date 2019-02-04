@@ -33,13 +33,13 @@ if(isset($_GET['action']) && $_GET['action'] === 'deconnexion'){
 
 
 
-
+//Variable pour message d'avertissement :
+$msg = "";
 
 /*************************************************************************************************
 FRONT
  *************************************************************************************************/
-//Variable pour message d'avertissement :
-$msg = "";
+
 //Variable d'affichage :
 $competence = "";
 /*----- Affichage des competences -----*/
@@ -82,9 +82,9 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'competence'){
     }
     while($projets = $req->fetch(PDO::FETCH_ASSOC)){
         //debugV($project);
-        $projet .='<div class="col-lg-4">';
+        $projet .='<div class="col-lg-4 mt-2">';
         $projet .='<img class="rounded-circle" src="" alt="Generic placeholder image" width= "140" height= "140">';
-        $projet .='<h2>'.$projets['pjtitle'].'</h2>';
+        $projet .='<h2 class="m-1">'.$projets['pjtitle'].'</h2>';
         $projet .='<p><a class="btn btn-success " href="'.$projets['pjlink'].'" role="button"> Visiter</a></p>';
         $projet .='</div>';
     }
@@ -92,15 +92,23 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'competence'){
 /*----- Affichage expériences -----*/
 //Variable d'affichage :
 $xp ="";
-if(isset($_GET['choix']) && $_GET['choix'] =='xp'){
+if(isset($_GET['choix']) && $_GET['choix'] =='experience'){
     $req = $pdo->query("SELECT * FROM xp ORDER BY xpyear2 DESC");
     while($xps = $req->fetch(PDO::FETCH_ASSOC)){
-        $xp .= '<tr>';
-        $xp .= '<th scope="row">'.$xps['xpyear1'] .'-'.$xps['xpyear2'] .' </th> ';
-        $xp .= '<td>'.$xps['xpfunction'] .'</td>';
-        $xp .= '<td>'.$xps['xpemployer'].'</td>';
-        $xp .= '<td>'.$xps['xpresume'] .'</td>';
-        $xp .= '</tr>';
+        $xp .= '<ul>';
+        $xp .= '<li>';
+        if($xps['xpyear1'] == $xps['xpyear2']){
+            $xp .= '<div> Depuis '.$xps['xpyear2'].'</div>';
+        } else {
+            $xp .= '<div class="timeline_date">'.$xps['xpyear1'].' - '.$xps['xpyear2'].'</div>';
+        }
+
+        $xp .=  '<p>'.$xps['xpfunction'].'</p>';
+        $xp .= '<p>'.$xps['xpemployer'].'</p>';
+        $xp .= '<p>'.$xps['xpresume'].'</p>';
+        $xp .= '</li>';
+        $xp .= '</ul>';
+
     }
 }
 /*----- Affichage Formations et langues -----*/
@@ -109,12 +117,18 @@ $diplome = "";
 if(isset($_GET['choix']) && $_GET['choix'] == 'formation'){
     $req = $pdo->query("SELECT * FROM schooling ORDER BY sgdate DESC");
     while($school = $req->fetch(PDO::FETCH_ASSOC)){
-        $diplome .= '<tr>';
-        $diplome .= '<th scope="row">'.$school['sgdate'] .'</th>';
-        $diplome .= '<td>'.$school['sgtitle'] .'</td>';
-        $diplome .= '<td>'.$school['sgsubtitle'] .'</td>';
-        $diplome .= '<td>'.$school['sgdescription'] .'</td>';
-        $diplome .= '</tr>';
+        $diplome .='<div class="col-lg-3">';
+        $diplome .='<div id="menuRotate">';
+        $diplome .='<dl class="menu">';
+        $diplome .= '<dt class="btnRot">'.$school['sgdate'].'</dt>';
+        $diplome .='<dd>'.$school['sgdescription'] .'</dd>';
+        $diplome .='<dd>'.$school['sgsubtitle'] .'</dd>';
+        $diplome .='<dd>'.$school['sgtitle'] .'</dd>';
+        $diplome .='</dl>';
+        $diplome .='<div class="masque"><div>';
+        $diplome .='<div class="ombre"><div>';
+        $diplome .='<div>';
+        $diplome .="</div>";
     }
 }
 //Variable d'affichage langue:
@@ -122,9 +136,11 @@ $langue = "";
 if(isset($_GET['choix']) && $_GET['choix'] == 'formation'){
     $req = $pdo->query("SELECT * FROM languages");
     while($lang = $req->fetch(PDO::FETCH_ASSOC)){
-        $langue .= '<tr>';
-        $langue .= '<th scope="row"> '.$lang['lglanguage'].' </th>';
-        $langue .= '<td>';
+
+        $langue .= '<div class="col-lg-3">';
+        $langue .= '<div class="card" id="card">';
+        $langue .= '<div class="face front"></div>';
+        $langue .= '<div class="face back">';
         if($lang['lglevel'] == 1){
             $langue .= '<p class="text-warning">Débutant</p>';
         }elseif($lang['lglevel'] == 2){
@@ -134,8 +150,11 @@ if(isset($_GET['choix']) && $_GET['choix'] == 'formation'){
         }elseif($lang['lglevel']== 4){
             $langue .= '<p class="text-success">Maitrise</p>';
         }
-        $langue .= '</td>';
-        $langue .= '</tr>';
+        $langue .= '</div>';
+        $langue .= '</div>';
+        $langue .= '</div>';
+//
+
     }
 }
 /*************************************************************************************************
@@ -154,7 +173,7 @@ if(empty($_POST)){
         $contactError .= '<div class="alert alert-warning text-danger"> Indiquez votre nom (entre 3 et 30 caractères)</div>';
 
     }
-    if(!isset($_POST['email']) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+    if(!isset($_POST['email']) || !filter_var($email,FILTER_VALIDATE_EMAIL)){
         $contactError .= '<div class="alert alert-warning text-danger"> Saisissez une adresse mail valide</div>';
     }
 
@@ -182,14 +201,31 @@ if(empty($_POST)){
 /*************************************************************************************************
                                         BACK-OFFICE
  *************************************************************************************************/
+// Variable d'affichage :
+$bo_comps ="";
+$msgComp ="";
+/*
+*SUPPRESSION DES COMPETENCES
+*/
+if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
+    $req= executeRequete("DELETE FROM competences WHERE idcompetence = :idcompetence", array(
+        ':idcompetence' => $_GET['id']
+    ));
+
+    if($req->rowCount()== 1){
+
+        $msgComp .= '<div class="alert alert-success>La competence n°' . $_GET['id'] . ' a bien été supprimée </div>';
+    }else{
+
+        $msgComp .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
+    }
+}
 
 /*>>>>> GESTION COMPETENCE & PROJET >>>>>*/
 /*
 *AFFICHAGE DES COMPETENCES
 */
-// Variable d'affichage :
-$bo_comps ="";
-$msgComp ="";
+
 if(isset($_GET['gestion']) && $_GET['gestion'] =='competence'){
     $req = $pdo->query("SELECT * FROM competences ");
     while($competence = $req->fetch(PDO::FETCH_ASSOC)){
@@ -207,23 +243,6 @@ if(isset($_GET['gestion']) && $_GET['gestion'] =='competence'){
         $bo_comps .='<td><a href="../form/formComp.php?action=update&id='.$competence['idcompetence'].'"><i class="far fa-edit text-warning"></i></a></td>';
         $bo_comps .='<td><a href="?gestion=competence&action=supp&id='.$competence['idcompetence'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
         $bo_comps .= '</tr>';
-    }
-}
-
-/*
-*SUPPRESSION DES COMPETENCES
-*/
-if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
-    $req= executeRequete("DELETE FROM competences WHERE idcompetence = :idcompetence", array(
-        ':idcompetence' => $_GET['id']
-    ));
-
-    if($req->rowCount()== 1){
-
-        $msgComp .= '<div class="alert alert-success>La competence n°' . $_GET['id'] . ' a bien été supprimée </div>';
-    }else{
-
-        $msgComp .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
     }
 }
 
@@ -276,26 +295,10 @@ if($_POST){
     }// if(empty($msg)){
 
 } //FIN if(POST)
-
-/*
-*AFFICHAGE DES PROJETS
-*/
+//-----------------------------------
 //Variable d'affichage :
 $bo_projet ="";
 $msgProjet="";
-if(isset($_GET['gestion']) && $_GET['gestion'] == 'competence'){
-    $req = $pdo->query("SELECT * FROM projects");
-    while($projet = $req->fetch(PDO::FETCH_ASSOC)){
-        $bo_projet .= '<tr>';
-        $bo_projet .= '<th scope="row">'.$projet['pjtitle'].'</th> ';
-        $bo_projet .= '<td class="text-success"><a href="'.$projet['pjlink'].'">'.$projet['pjlink'].'</a></td>';
-
-        $bo_projet .='<td><a href="../form/formProjet.php?action=update&id='.$projet['idproject'].'"><i class="far fa-edit text-warning"></i></a></td>';
-        $bo_projet .='<td><a href="?gestion=competence&action=supp&id='.$projet['idproject'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
-        $bo_projet .= '</tr>';
-
-    }
-}
 /*
 *SUPPRESSION DES PROJETS
 */
@@ -312,6 +315,24 @@ if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
         $msgProjet .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
     }
 }
+/*
+*AFFICHAGE DES PROJETS
+*/
+
+if(isset($_GET['gestion']) && $_GET['gestion'] == 'competence'){
+    $req = $pdo->query("SELECT * FROM projects");
+    while($projet = $req->fetch(PDO::FETCH_ASSOC)){
+        $bo_projet .= '<tr>';
+        $bo_projet .= '<th scope="row">'.$projet['pjtitle'].'</th> ';
+        $bo_projet .= '<td class="text-success"><a href="'.$projet['pjlink'].'">'.$projet['pjlink'].'</a></td>';
+
+        $bo_projet .='<td><a href="../form/formProjet.php?action=update&id='.$projet['idproject'].'"><i class="far fa-edit text-warning"></i></a></td>';
+        $bo_projet .='<td><a href="?gestion=competence&action=supp&id='.$projet['idproject'].'"><i class="far fa-trash-alt text-danger"></i></a></td>';
+        $bo_projet .= '</tr>';
+
+    }
+}
+
 /*
 *AJOUT & MODIFICATION DES PROJETS
 */
@@ -384,7 +405,6 @@ if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
         $msgXp .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
     }
 }
-
 
 /*
 *AFFICHAGE DES EXPERIENCES
@@ -621,12 +641,29 @@ if($_POST){
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 /*>>>>> GESTION DES LANGUES >>>>>*/
-/*
-*AFFICHAGE DES LANGUES
-*/
 // Variable d'affichage :
 $bo_langue ="";
 $msgLangue ="";
+/*
+*SUPPRESSION DES LANGUES
+*/
+if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
+    $req= executeRequete("DELETE FROM languages WHERE idlanguage = :idlanguage", array(
+        ':idlanguage' => $_GET['id']
+    ));
+
+    if($req->rowCount()== 1){
+
+        $msgLangue .= '<div class="alert alert-success>La langue n°' . $_GET['id'] . ' a bien été supprimée </div>';
+    }else{
+
+        $msgLangue .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
+    }
+}
+/*
+*AFFICHAGE DES LANGUES
+*/
+
 if(isset($_GET['gestion']) && $_GET['gestion'] =='formation'){
     $req = $pdo->query("SELECT * FROM languages");
     while($lang = $req->fetch(PDO::FETCH_ASSOC)){
@@ -646,22 +683,7 @@ if(isset($_GET['gestion']) && $_GET['gestion'] =='formation'){
         $bo_langue .= '</tr>';
     }
 }
-/*
-*SUPPRESSION DES LANGUES
-*/
-if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
-    $req= executeRequete("DELETE FROM languages WHERE idlanguage = :idlanguage", array(
-        ':idlanguage' => $_GET['id']
-    ));
 
-    if($req->rowCount()== 1){
-
-        $msgLangue .= '<div class="alert alert-success>La langue n°' . $_GET['id'] . ' a bien été supprimée </div>';
-    }else{
-
-        $msgLangue .='<div class="alert alert-danger>La  suppression n\'a pu être faite</div>';
-    }
-}
 /*
 *AJOUT & MODIFICATION DES LANGUES
 */
