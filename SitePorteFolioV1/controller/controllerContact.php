@@ -31,7 +31,7 @@ if(empty($_POST)){
         // j'utilise la methode contactAction() de ma class Contact.php
         $contact->contactAction($prenom, $nom, $email, $message);
 
-        header('location:../index.php?choix=contact');
+//        header('location:../index.php?choix=contact');
 
         $successContact .='<div class="alert alert-success">Votre message à bien été enregistré </div>';
     }

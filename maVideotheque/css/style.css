@@ -1,0 +1,21 @@
+header {
+    /* background: red; */
+    height: 10rem;
+}
+
+h1 {
+    text-align: center;
+    color: grey;
+
+}
+
+.container {
+    /* background: bisque; */
+    height: 36rem;
+}
+
+footer span {
+    /* text-align: end; */
+    display: flex;
+    justify-content: center;
+}

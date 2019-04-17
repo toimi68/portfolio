@@ -194,14 +194,14 @@ if($_POST){
             <div class="container">
                 <table class="table table-striped table-dark " border="1px solid red">
                     <thead>
-                    <tr>
-                        <th>Technologie</th>
-                        <th>Niveau</th>
-                        <th colspan="2">Action</th>
-                    </tr>
+                        <tr>
+                            <th>Technologie</th>
+                            <th>Niveau</th>
+                            <th colspan="2">Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php
+                        <?php
                     echo $bo_comps;
                     ?>
                     </tbody>
@@ -223,14 +223,14 @@ if($_POST){
             <div class="container">
                 <table class="table table-striped table-dark " border="1px solid red">
                     <thead>
-                    <tr>
-                        <th>Titre</th>
-                        <th>URL</th>
-                        <th colspan="2">Action</th>
-                    </tr>
+                        <tr>
+                            <th>Titre</th>
+                            <th>URL</th>
+                            <th colspan="2">Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php
+                        <?php
                     echo $bo_projet;
                     ?>
                     </tbody>
