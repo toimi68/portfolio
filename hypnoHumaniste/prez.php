@@ -2,7 +2,7 @@
 require_once "inc/header.inc.php";
 ?>
 <div class="row">
-    <div class="col-md-3 order-md-10  mt-5">
+    <div class="col-md-3 order-md-11  m-3">
         <img src="img/Photo_id2.jpg" alt="anne-cecile rougier" class="rounded img-thumbnail mt-3">
     </div>
     <div class="col-md-8 order-md-1 p-0">
