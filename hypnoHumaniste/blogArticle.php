@@ -1,6 +1,9 @@
 <?php
 require_once "inc/header.inc.php";
-?>
+
+if (isset($_GET['action']) && $_GET['action'] == "articles") {
+    ?>
+<!-- tous les articles -->
 <div class="row">
     <div class="card col-md-3 mb-2 p-0">
         <h5 class="card-header">Titre</h5>
@@ -14,11 +17,42 @@ require_once "inc/header.inc.php";
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-3 offset-10 mb-2">
-        <a href="blogArticle.php?action=articles" class="btn btn-info">Plus d'articles</a>
+<?php
+} elseif (isset($_GET['action']) && $_GET['action'] == 'art') {
+    ?>
+<!-- un article -->
+<div class="container">
+    <div class="row">
+        <a href="blogArticle.php?action=articles" class="btn btn-primary mb-2 offset-10">Retour articles</a>
+    </div>
+    <div class="row">
+        <div class="card offset-5">
+            <div class="card-body">
+                <h5> Title</h5>
+            </div>
+        </div>
     </div>
 </div>
+
+<?php
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php
 require_once "inc/footer.inc.php";

@@ -44,7 +44,7 @@ require_once "inc/header.inc.php";
 ?>
 
 
-<form method="POST">
+<form method="POST" class="mb-2">
 
     <?= $msg; ?>
     <div class="row">
@@ -60,11 +60,11 @@ require_once "inc/header.inc.php";
     <small class=" text-info font-italic"> ** mesage de 200 caractères max.</small> <?= $errorTem; ?>
     <div class="row">
         <div class="col-md-10">
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea name=" tmessage" class="form-control" rows="3"></textarea>
         </div>
     </div>
-    <div class="col-md-3 col-sm-12">
-        <input type="submit" class="btn btn-dark mt-3 text-success btn-block" value="Envoyer">
+    <div class="col-md-3  mb-2">
+        <input type="submit" class="btn btn-dark mt-3  text-success btn-block" value="Envoyer">
     </div>
 </form>
 

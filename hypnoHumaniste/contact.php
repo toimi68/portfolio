@@ -33,6 +33,12 @@ if ($_POST) {
 
     if (empty($errorPrenom) && empty($errorNom) && empty($errorEmail) && empty($errorMsg)) {
 
+
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = htmlspecialchars($value, ENT_QUOTES);
+        } //FIN  foreach ($_POST as $key => $value)
+
+
         $req = $pdo->prepare("INSERT INTO contacts (prenom, nom, email, message) VALUES (:prenom,:nom,:email,:message)");
 
         $req->bindValue(':prenom', $prenom, PDO::PARAM_STR);
@@ -42,7 +48,7 @@ if ($_POST) {
 
         $req->execute();
 
-        $successMsg .= '<div class="alert alert-primary text-center">Votre message à bien été envoyé</div>';
+        $successMsg .= '<div class="alert alert-primary text-center">Votre message à bien été envoyer</div>';
     }
 }
 
@@ -50,47 +56,46 @@ if ($_POST) {
 
 <div class="row">
     <div class="col-md-12 mb-4">
-        <span class="mb-5">Si vous souhaitez m’écrire : </span><br>
-        <span class="offset-md-2"><strong>anserougier@yahoo.fr</strong></span><br>
-        <span class="offset-md-2"> <strong>Anne-Cécile ROUGIER – Hypno-thérapeute
-            </strong>.
-            <ul class="offset-md-2">
-                <li>- Adultes</li>
-                <li>- Adolescents</li>
-                <li>- Couples</li>
-                <li>- femmes enceintes</li>
-            </ul>
-        </span>
-        <span class="offset-md-2"><strong>Prendre RDV au 06 63 75 09 81</strong>.</span>
+        <p>Si vous souhaitez m’écrire :</p>
+        <p class="text-center">anserougier@yahoo.fr</p>
+        <p class="text-center">Anne-Cécile ROUGIER – Hypno-thérapeute</p>
+        <p class="text-center">
+            <em>Adulte - Adolescent - Couple - Femme enceinte</em>
+        </p>
+        <p class="text-center">Prendre RDV au 06 63 75 09 81</p>
     </div>
 </div>
-
 <div class="row">
-    <form method="post" class="offset-md-3">
-        <?= $successMsg; ?>
-        <div class="row">
-            <div class="col-md-5 col-sm-12 mb-2">
-                <small><?php echo $errorPrenom; ?></small>
-                <input type="text" class="form-control" placeholder="saisissez votre prénom" name="prenom">
+    <div class="col-md-5 order-md-6" id="a1">
+        <form>
+            <div class="form-group">
+                <?php echo $errorPrenom; ?>
+                <input type="text" class="form-control" placeholder="Prénom">
             </div>
-            <div class="col-md-5 col-sm-12 mb-2">
-                <small><?php echo $errorNom; ?></small>
-                <input type="text" name="nom" class="form-control" placeholder="saisissez votre nom">
+            <div class="form-group">
+                <?php echo $errorNom; ?>
+                <input type="text" class="form-control" placeholder="nom">
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 col-sm-12 mb-2">
-                <small><?php echo $errorEmail; ?></small>
-                <input type="text" name="email" class="form-control" placeholder="votre@email.fr">
+            <div class="form-group">
+                <?php echo $errorEmail; ?>
+                <input type="text" class="form-control" placeholder="votre@email.fr">
             </div>
-        </div>
-        <small><?php echo $errorMsg; ?></small>
-        <div class="row">
-            <div class="col-md-10 mb-2">
-                <textarea class="form-control" name="message" cols="51" rows="9"></textarea>
+            <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
             </div>
-        </div> <button type="submit" class="btn btn btn-dark text-success mb-2 ">Envoyer</button>
-    </form>
+            <?php echo $errorMsg; ?>
+            <button type="submit" class="btn btn btn-dark text-success mb-2 ">Envoyer</button>
+        </form>
+
+    </div>
+    <div class="col-md-6 order-md-1" id="a2">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.7704676860394!2d2.3711157156745233!3d48.86258717928785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66dfb861f8079%3A0x3d12cedc238537f8!2s23+Rue+de+la+Folie+M%C3%A9ricourt%2C+75011+Paris!5e0!3m2!1sfr!2sfr!4v1556201686845!5m2!1sfr!2sfr"
+            width="300" height="250" frameborder="0" style="border:0" class="embed-responsive-item"
+            allowfullscreen></iframe>
+    </div>
+
+</div>
 
 </div>
 
