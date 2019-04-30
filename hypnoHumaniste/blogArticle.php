@@ -1,24 +1,38 @@
 <?php
+require_once "inc/init.inc.php";
+$contenu = "";
+
+//AFFICHAGE DE TOUT LES ARTICLES
+$req = $pdo->query("SELECT * FROM articles");
+while ($articles = $req->fetch(PDO::FETCH_ASSOC)) {
+    $contenu .= '<div class="card col-md-5 m-2 p-0">';
+    $contenu .= '<h5 class="card-header">' . $articles['title'] . '></h5>';
+    $contenu .= '<div class="card-body">';
+    $contenu .= '<p class="card-text">' . substr($articles['article'], 0, 60) . '... </p>';
+    $contenu .= '<a col-md-3 href="' . $articles['link'] . '" class="card-title">' . $articles['link'] . '</a>';
+    $contenu .= '<a href="blogArticle.php?action=art&id=' . $articles['id_article'] . '" class="btn btn-primary btn-block">Lire</a>';
+    $contenu .= '</div>';
+    // $contenu .= '<div class="card-footer text-muted">2 days ago</div>';
+    $contenu .= '</div>';
+}
+$art = $req->fetch(PDO::FETCH_ASSOC);
+
+
+//AFFICHAGE D'UN SEUL ARTICLE
+// $art = $pdo->query("SELECT * FROM articles");
+
 require_once "inc/header.inc.php";
 
 if (isset($_GET['action']) && $_GET['action'] == "articles") {
     ?>
 <!-- tous les articles -->
 <div class="row">
-    <div class="card col-md-3 mb-2 p-0">
-        <h5 class="card-header">Titre</h5>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="blogArticle.php?action=art" class="btn btn-primary btn-block">Lire</a>
-        </div>
-        <div class="card-footer text-muted">
-            2 days ago
-        </div>
-    </div>
+
+    <?= $contenu; ?>
+
 </div>
 <?php
-} elseif (isset($_GET['action']) && $_GET['action'] == 'art') {
+} elseif (isset($_GET['action']) && $_GET['action'] == 'art'  && isset($_GET['id']) && $_GET['id'] == $art['id_article']) {
     ?>
 <!-- un article -->
 <div class="container">
@@ -26,10 +40,11 @@ if (isset($_GET['action']) && $_GET['action'] == "articles") {
         <a href="blogArticle.php?action=articles" class="btn btn-primary mb-2 offset-10">Retour articles</a>
     </div>
     <div class="row">
-        <div class="card offset-5">
-            <div class="card-body">
-                <h5> Title</h5>
-            </div>
+        <div class="container">
+            <h3 class=""><?php echo $art['title'] ?></h3>
+
+            <p><?php echo $art['article'] ?></p>
+
         </div>
     </div>
 </div>

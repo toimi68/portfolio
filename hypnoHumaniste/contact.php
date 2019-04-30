@@ -66,7 +66,7 @@ if ($_POST) {
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5 order-md-6" id="a1">
+    <div class="col-md-6 order-md-6" id="a1">
         <form>
             <div class="form-group">
                 <?php echo $errorPrenom; ?>

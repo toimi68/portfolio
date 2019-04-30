@@ -12,7 +12,7 @@ if ($_POST) {
     }
 
     if (!filter_var($link, FILTER_VALIDATE_URL) || empty($link) || empty($article) || strlen($article) < 3) {
-        $msgError .= '<small class="text-danger">** informez au moins le lien ou l\'article</small>';
+        $msgError .= '<small class="text-danger">** renseignez au moins le lien ou l\'article</small>';
     }
 
     //INSERTION EN BDD
@@ -23,9 +23,15 @@ if ($_POST) {
             $_POST[$key] = htmlspecialchars($value, ENT_QUOTES);
         } // FIN foreach ($_POST as $key => $value)
 
-       
+        $donnees = $pdo->prepare(" INSERT INTO articles (title, link, article) VALUES (:title, :link, :article)");
 
-        $successMsg .= '<div class="alert alert-primary text-center">l\'article à bien été enregistrer</div>';
+        $donnees->bindValue(':title', $title, PDO::PARAM_STR);
+        $donnees->bindValue(':link', $link, PDO::PARAM_STR);
+        $donnees->bindValue(':article', $article, PDO::PARAM_STR);
+
+        $donnees->execute();
+
+        $successMsg .= '<div class=" col-md-6 offset-1 alert alert-primary text-center">l\'article à bien été enregistrer</div>';
     } //FIN if(empty($msgTitre) && empty($msgError))
 
 } // FIN if($_POST)
@@ -65,8 +71,8 @@ if ($_POST) {
                 <input type="hidden" name="id_article">
                 <div class="form-group">
                     <div class="col-md-8">
-                        <?= $msgTitle; ?>
-                        <input type="text" class="form-control" id="text" name="title" placeholder="Titre"> </div>
+                        <?= $msgTitle;?>
+                        <input type="text" class="form-control" id="text" name="title" placeholder="Titre"></div>
                     <div class="form-group">
                         <div class="col-md-8 mt-2">
                             <input type="text" class="form-control" id="text" name="link" placeholder="lien http://">
