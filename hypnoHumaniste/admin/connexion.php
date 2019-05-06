@@ -1,3 +1,26 @@
+<?php
+include_once '../inc/init.inc.php';
+
+echo '<pre>';
+var_dump($_POST);
+echo '</pre>';
+
+$req = $pdo->query("SELECT * FROM user");
+$admin = $req->fetch(PDO::FETCH_ASSOC);
+
+//variable d'affichage :
+$msg = "";
+//Verification des champs
+if ($_POST) {
+    if (!isset($_POST['prenom']) || $_POST['prenom'] != $admin['prenom'] && !isset($_POST['nom']) || $_POST['nom'] != $admin['nom'] && !isset($_POST['mdp']) || password_verify($_POST['mdp'], $admin['mdp']) || $admin['statut'] != 1) {
+        $msg .= '<div class=" col-md-6 alert alert-warning text-danger text-center">** Le prenom ou le nom ou le mot de passe est incorrect.</div>';
+    } else {
+        header('location:gestionAdmin.php');
+    }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -12,15 +35,20 @@
 
 <body>
     <div class="container offset-md-4 mt-5">
+        <?= $msg; ?>
         <form method="post" class=" mt-5">
-            <div class="form-group">
+            <div class="row form-group">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="pseudo" name="pseudo">
+                    <input type="text" class="form-control" placeholder="prenom" name="prenom">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="nom" name="nom">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="row form-group">
                 <div class="col-md-4">
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="mot de passe">
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="mot de passe"
+                        name="mdp">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary offset-md-1">Connexion</button>

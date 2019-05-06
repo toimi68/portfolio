@@ -1,11 +1,60 @@
 <?php
 require_once "../inc/init.inc.php";
-// ARTICLE
-// Récupération des données article :
+//variable d'affichage :
+$contenu = "";
+$donnees = "";
+$msg="";
+$error="";
 
-//TEMOIGNAGE
-// Récupération des données article :
+/*********
+ ARTICLE
+ ********/
 
+
+//Suppression des articles :
+if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])){
+
+    $req = $pdo->prepare("DELETE FROM articles WHERE id_article = :id_article");
+    $req->bindValue(':id_article', $_GET['id'], PDO::PARAM_INT);
+    $req->execute();
+
+    if($req->rowCount() == 1){
+        $msg .= '<div class="col-md-5 alert-success>L\'article  n°' . $_GET['id'] . ' a bien été supprimé </div>';
+    }else {
+        $error .= '<div class="col-md-5 alert-success>La formation n°' . $_GET['id'] . ' a bien été supprimée </div>';
+    }
+
+}// FIN if(isset($_GET['action']) && $_GET['action'] == 'supp' && isset($_GET['id'])
+
+
+// Récupération des données article :
+$req = $pdo->query("SELECT * FROM articles ORDER BY id_article DESC");
+while ($article = $req->fetch(PDO::FETCH_ASSOC)) {
+    $contenu .= '<tr>';
+    $contenu .= '<td class="text-light">' . $article['title'] . '</td>';
+    $contenu .= '<td class="text-light">' . $article['article'] . '</td>';
+    $contenu .= '<td class="text-light"><a href="'.$article['link'].'">' . $article['link'] . '</a></td>';
+    $contenu .= '<td><a href="formArticle.php?action=modif&id=' . $article['id_article'] . '"><i class="fas fa-edit text-warning"></i></i></a></td>';
+    $contenu .= '<td><a href="?action=supp&id=' . $article['id_article'] . '"><i class="fas fa-trash text-danger"></i></a></td>';
+    $contenu .= '</tr>';
+}
+
+
+
+
+/*********
+TEMOIGNAGE
+ *********/
+// Récupération des données article :
+$request = $pdo->query("SELECT* FROM temoignages ORDER BY id_temoin DESC ");
+while ($temoin = $request->fetch(PDO::FETCH_ASSOC)) {
+    $donnees .= '<tr>';
+    $donnees .= '<td class="text-light">' . $temoin['tprenom'] . '</td>';
+    $donnees .= '<td class="text-light">' . $temoin['tnom'] . '</td>';
+    $donnees .= '<td class="text-light">' . $temoin['tmessage'] . '</td>';
+    $donnees .= '<td><a href="?action=supp&id=' . $temoin['id_temoin'] . '"><i class="fas fa-trash text-danger"></i></a></td>';
+    $donnees .= '</tr>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -38,25 +87,19 @@ require_once "../inc/init.inc.php";
         <div class="row">
             <div class="container m-3">
                 <h3>Gestion des articles</h3>
-                <table class="table table-dark table-striped">
+                <?= $msg;?>
+                <?= $error;?>
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col" class="">Titre</th>
-                            <th scope="col" class="">Lien</th>
-                            <th scope="col" class="">Handle</th>
+                            <th scope="col" class="text-light">Titre</th>
+                            <th scope="col" class="text-light">Lien</th>
+                            <th scope="col" class="text-light">Article</th>
                             <th colspan="2" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="">Mark</td>
-                            <td class="">Otto</td>
-                            <td class="">@mdo</td>
-                            <td><a href="formArticle.php?action=modif&id="><i
-                                        class="fas fa-edit text-warning"></i></i></a>
-                            </td>
-                            <td><a href="?action=supp&id="><i class="fas fa-trash text-danger"></i></a></td>
-                        </tr>
+                        <?= $contenu; ?>
                     </tbody>
                 </table>
                 <a href="formArticle.php?action=ajout" class="offset-11"><i
@@ -70,23 +113,18 @@ require_once "../inc/init.inc.php";
             <div class="container m-3">
 
                 <h3>Gestion des témoignages</h3>
-                <table class="table table-dark table-striped">
+                <table class="table table-striped">
                     <thead>
                         <tr>
 
-                            <th scope="col">Prénom</th>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Message</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" class="text-light">Prénom</th>
+                            <th scope="col" class="text-light">Nom</th>
+                            <th scope="col" class="text-light">Message</th>
+                            <th scope="col" class="text-light">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="">Mark</td>
-                            <td class="">Otto</td>
-                            <td class="">Otto</td>
-                            <td><a href="#"><i class="fas fa-trash text-danger"></i></a></td>
-                        </tr>
+                        <?= $donnees; ?>
                     </tbody>
                 </table>
             </div>

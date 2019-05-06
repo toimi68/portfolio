@@ -18,8 +18,8 @@ if ($_POST) {
     if (empty($tnom) || iconv_strlen($tnom) < 3 || iconv_strlen($tnom) > 50) {
         $errorNom .= '<small class="text-danger">* Le nom doit contenir 3 à 50 caractères</small>';
     }
-    if (empty($tmessage) || iconv_strlen($tmessage) < 3 || iconv_strlen($tmessage) > 200) {
-        $errorTem .= '<small class="text-danger">* 200 caractères max </small>';
+    if (empty($tmessage) || iconv_strlen($tmessage) < 3) {
+        $errorTem .= '<small class="text-danger">* 3 caractères min </small>';
     }
     //INSERTION EN BDD
     if (empty($errorPre) && empty($errorNom) && empty($errorTem)) {

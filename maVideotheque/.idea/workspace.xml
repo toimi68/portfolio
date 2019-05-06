@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a416c874-d376-4cf8-a311-77db61a1d496" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin/liste.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/admin/gestionIndex.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/admin/gestionIndex.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/competence.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/competence.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/contact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/controller/controllerContact.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/controller/controllerContact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/controller/controllerXp.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/controller/controllerXp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/experience.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/experience.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/form/formContact.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/inc/footer.inc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/form/formconnexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/form/formconnexion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/formation.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/formation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SitePorteFolioV1/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/../SitePorteFolioV1/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hypnoHumaniste/admin/connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/../hypnoHumaniste/admin/connexion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hypnoHumaniste/admin/gestionAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../hypnoHumaniste/admin/gestionAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hypnoHumaniste/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/../hypnoHumaniste/contact.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hypnoHumaniste/css/styleAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hypnoHumaniste/css/styleAdmin.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="674">
-              <caret line="68" column="52" lean-forward="true" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="52" />
+            <state relative-caret-position="470">
+              <caret line="68" column="52" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -47,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/inc/init.inc.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="850">
-              <caret line="50" column="3" lean-forward="true" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
+              <caret line="50" column="3" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -108,7 +98,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hypnoHumaniste" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -135,17 +125,18 @@
       <workItem from="1551873569944" duration="9802000" />
       <workItem from="1551952567666" duration="5653000" />
       <workItem from="1551960091985" duration="4025000" />
+      <workItem from="1557132250843" duration="399000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19480000" />
+    <option name="totallyTimeSpent" value="19879000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.12633263" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.12739871" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -190,10 +181,10 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/inc/init.inc.php">
+    <entry file="file://$PROJECT_DIR$/admin/form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="50" column="3" lean-forward="true" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
+        <state relative-caret-position="470">
+          <caret line="68" column="52" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -204,10 +195,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/form.php">
+    <entry file="file://$PROJECT_DIR$/inc/init.inc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="674">
-          <caret line="68" column="52" lean-forward="true" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="52" />
+        <state relative-caret-position="850">
+          <caret line="50" column="3" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
         </state>
       </provider>
     </entry>

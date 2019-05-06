@@ -8,7 +8,7 @@ $req = $pdo->query("SELECT * FROM temoignages ORDER BY id_temoin DESC");
 
 while ($temoignage = $req->fetch(PDO::FETCH_ASSOC)) {
 
-    $contenu .= ' <div class="col-md-3 m-1">';
+    $contenu .= ' <div class="col-md-5 m-1">';
     $contenu .= '<div class="card">';
     $contenu .= '<div class="card-body">';
     $contenu .= '<p class="card-text">' . $temoignage['tmessage'] . '</p>';

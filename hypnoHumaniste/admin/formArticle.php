@@ -3,8 +3,23 @@ require_once "../inc/init.inc.php";
 $successMsg = "";
 $msgTitle = "";
 $msgError = "";
+
 extract($_POST);
 
+// Ajout & modification des articles:
+if(isset($_GET['action']) && $_GET['action'] == 'modif' && isset($_GET['id'])){
+    $req = $pdo->prepare("SELECT * FROM articles WHERE id_article = :id_article");
+    $req->bindValue(':id_article', $_GET['id'], PDO::PARAM_INT);
+    $req->execute();
+
+    if($req->rowCount() > 0){
+        //Je récupère des infos en BDD pour afficher dans le formulaire de modification
+        $art = $req->fetch(PDO::FETCH_ASSOC);
+    }
+}// FIN if(isset($_GET['action']) && $_GET['action'] == 'modif' && isset($_GET['id'])
+
+
+//Ajout & modification des articles
 if ($_POST) {
 
     if (empty($title) || iconv_strlen($title) < 3 || iconv_strlen($title) > 100) {
@@ -23,8 +38,9 @@ if ($_POST) {
             $_POST[$key] = htmlspecialchars($value, ENT_QUOTES);
         } // FIN foreach ($_POST as $key => $value)
 
-        $donnees = $pdo->prepare(" INSERT INTO articles (title, link, article) VALUES (:title, :link, :article)");
+        $donnees = $pdo->prepare(" REPLACE INTO articles (id_article, title, link, article) VALUES (:id_article, :title, :link, :article)");
 
+        $donnees->bindValue(':id_article', $id_article, PDO::PARAM_INT);
         $donnees->bindValue(':title', $title, PDO::PARAM_STR);
         $donnees->bindValue(':link', $link, PDO::PARAM_STR);
         $donnees->bindValue(':article', $article, PDO::PARAM_STR);
@@ -68,19 +84,19 @@ if ($_POST) {
         <div class="container m-5">
             <form method="POST" class="offset-md-4 mt-5">
                 <?= $successMsg; ?>
-                <input type="hidden" name="id_article">
+                <input type="hidden" name="id_article" value="<?php if(isset($_GET['action']) && $_GET['action'] == 'modif' && isset($_GET['id'])){ echo $art['id_article'];}else{ echo "";} ?>">
                 <div class="form-group">
                     <div class="col-md-8">
                         <?= $msgTitle;?>
-                        <input type="text" class="form-control" id="text" name="title" placeholder="Titre"></div>
+                        <input type="text" class="form-control" id="text" name="title" placeholder="Titre" value="<?php if(isset($_GET['action']) && $_GET['action'] == 'modif' && isset($_GET['id'])){ echo $art['title'];}else{ echo "Titre";} ?>"></div>
                     <div class="form-group">
                         <div class="col-md-8 mt-2">
-                            <input type="text" class="form-control" id="text" name="link" placeholder="lien http://">
+                            <input type="text" class="form-control" id="text" name="link" placeholder="lien http://" value="<?php if(isset($_GET['action']) && $_GET['action'] == 'modif' && isset($_GET['id'])){ echo $art['link'];}else{ echo "lien http://";} ?>">
                         </div>
                     </div>
                     <div class="col-md-8">
                         <?= $msgError; ?>
-                        <textarea class="form-control" name="article" rows="3"></textarea>
+                        <textarea class="form-control" name="article" rows="3"><?php if(isset($_GET['action']) && $_GET['action'] == 'modif' && isset($_GET['id'])){ echo $art['article'];}else{ echo "";} ?></textarea>
                     </div>
                     <div class="col-md-5">
                         <input type="submit" class="btn btn-dark mt-4 text-success btn-block" value="Enregistrer">
