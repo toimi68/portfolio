@@ -7,6 +7,7 @@ require_once '../inc/admin/adminHeader.inc.php';
 $errorComp="";
 $bo_comps="";
 $msgSuccess="";
+$bo_projet="";
 /*
 *SUPPRESSION DES COMPETENCES
 */
@@ -76,7 +77,7 @@ $project_update = $req->fetch(PDO::FETCH_ASSOC);}}//FIN if(isset($_GET['action']
 
 //1.2 Traitement du formulaire pour enregistrer en BDD :
 if($_POST){//Vérification des champs
-if(!isset($_POST['pjtitle']) || strlen($_POST['pjtitle']) < 3 || strlen($_POST['pjtitle'])> 50 ){$errorProjet .= '<div class="alert alert-warning text-danger">** Saisissez le nom du projet</div>';}if(!isset($_POST['pjlink']) || !filter_var($_POST['pjlink'],FILTER_VALIDATE_URL)){$errorProjet .= '<div class="alert alert-warning text-danger">** Entrez une URL valide</div>'; }
+if(!isset($_POST['pjtitle']) || strlen($_POST['pjtitle']) < 3 || strlen($_POST['pjtitle'])> 50 ){$errorProjet .= '<div class="alert alert-warning text-danger">** Saisissez le nom du projet</div>';}if(!isset($_POST['pjlink']) || !filter_var($_POST['pjlink'],FILTER_VALIDATE_URL)){$errorProjet .= '<div class="alert alert-warning text-danger">** Entrez une URL valide</div>'; }}
 //1.3 - Insertion en BDD si tout les champs sont correctes
 if(empty($msgProjet)){// a) assainissement des saisies de l'intertnaute
 foreach($_POST as $indice => $valeur){$_POST[$indice] = htmlspecialchars($valeur, ENT_QUOTES); }
@@ -89,7 +90,7 @@ $donnees = $pdo->prepare("REPLACE INTO projects VALUES (:idproject, :pjtitle, :p
 <div class="row">
 <div class="col-lg-12 mt-5">
 <div class="container">
-<table class="table table-striped table-dark " border="1px solid red">
+<table class="table table-striped table-dark ",border="1px solid red">
 <thead>
 <tr>
 <th>Technologie</th>
@@ -125,7 +126,7 @@ table class="table table-striped table-dark " border="1px solid red">
 </tr>
 </thead>
 <tbody>
-<?phpecho $bo_projet;?>
+<?php echo $bo_projet ; ?>
 </tbody>
 </table>
 <a href="../form/formProjet.php?" class="offset-11"><i class="fas fa-plus text-dark btn btn-outline-success"></i></a>
